@@ -45,14 +45,39 @@ def character_icons():
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((100, 90), (150, 150)),
                                           image_surface=pygame.image.load('artwork/c1_icon.png'),
                                           manager=manager)
+    c2_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((400, 90), (150, 150)),
+                                            image_surface=pygame.image.load('artwork/c2_icon.png'),
+                                            manager=manager)
+    c3_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((700, 90), (150, 150)),
+                                            image_surface=pygame.image.load('artwork/c3_icon.png'),
+                                            manager=manager)
+    c4_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((100, 290), (150, 150)),
+                                            image_surface=pygame.image.load('artwork/c4_icon.png'),
+                                            manager=manager)
+    c5_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((400, 290), (150, 150)),
+                                            image_surface=pygame.image.load('artwork/c5_icon.png'),
+                                            manager=manager)
+    c6_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((700, 290), (150, 150)),
+                                            image_surface=pygame.image.load('artwork/c6_icon.png'),
+                                            manager=manager)
+    return c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon
 
-def select_attribute(character1, character2, character3, character4, character5, character6):
+def select_attribute(character1, character2, character3, character4, character5, character6,
+                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon):
     character1.kill()
     character2.kill()
     character3.kill()
     character4.kill()
     character5.kill()
     character6.kill()
+
+    c1_icon.kill()
+    c2_icon.kill()
+    c3_icon.kill()
+    c4_icon.kill()
+    c5_icon.kill()
+    c6_icon.kill()
+
     # Attribute Selection
 
 running = True
@@ -71,19 +96,27 @@ if __name__ == "__main__":
                     start_button.kill()
                     # TODO: make this suck less
                     character1, character2, character3, character4, character5, character6 = character_selection()
-                    character_icons()
+                    c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon = character_icons()
+                # TODO this sucks a lot
                 elif event.ui_element == character1:
-                    select_attribute(character1, character2, character3, character4, character5, character6)
+                    select_attribute(character1, character2, character3, character4, character5, character6,
+                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character2:
-                    select_attribute(character1, character2, character3, character4, character5, character6)
+                    select_attribute(character1, character2, character3, character4, character5, character6,
+                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character3:
-                    select_attribute(character1, character2, character3, character4, character5, character6)
+                    select_attribute(character1, character2, character3, character4, character5, character6,
+                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character4:
-                    select_attribute(character1, character2, character3, character4, character5, character6)
+                    select_attribute(character1, character2, character3, character4, character5, character6,
+                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character5:
-                    select_attribute(character1, character2, character3, character4, character5, character6)
+                    select_attribute(character1, character2, character3, character4, character5, character6,
+                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character6:
-                    select_attribute(character1, character2, character3, character4, character5, character6)
+                    select_attribute(character1, character2, character3, character4, character5, character6,
+                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
+
             manager.process_events(event)
 
         # Reset the screen
