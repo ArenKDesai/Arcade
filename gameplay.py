@@ -1,3 +1,5 @@
+import random
+
 class Character:
     def __init__(self, name, hp, attack, defense, speed, mana):
         self.name = name
@@ -29,39 +31,49 @@ class Player(Character):
         super().__init__(name, hp, attack, defense, speed, mana)
 
 class Enemy(Character):
-    def __init__(self, name, hp, attack, defense, speed, mana, target):
+    def __init__(self, name, hp, attack, defense, speed, mana, target, move1, move2):
         super().__init__(name, hp, attack, defense, speed, mana)
         self.target = target
+        self.move1 = move1
+        self.move2 = move2
     # Enemy will attack based on what stat it targets
     # TODO make this less repetitive
     def attack(self, player1, player2):
+        decision = random.random()
+        p1 = player1
+        p2 = player2
+        if decision > 0.65:
+            p2 = player1
+            p1 = player2
         if self.target == "hp":
-            if player1.hp > player2.hp:
-                player1.take_damage(self.__use_move())
+            if p1.hp > p2.hp:
+                p1.take_damage(self.__use_move())
             else:
-                player2.take_damage(self.__use_move())
+                p2.take_damage(self.__use_move())
         elif self.target == "attack":
-            if player1.attack > player2.attack:
-                player1.take_damage(self.__use_move())
+            if p1.attack > p2.attack:
+                p1.take_damage(self.__use_move())
             else:
-                player2.take_damage(self.__use_move())
+                p2.take_damage(self.__use_move())
         elif self.target == "defense":
-            if player1.defense > player2.defense:
-                player1.take_damage(self.__use_move())
+            if p1.defense > p2.defense:
+                p1.take_damage(self.__use_move())
             else:
-                player2.take_damage(self.__use_move())
+                p2.take_damage(self.__use_move())
         elif self.target == "speed":
-            if player1.speed > player2.speed:
-                player1.take_damage(self.__use_move())
+            if p1.speed > p2.speed:
+                p1.take_damage(self.__use_move())
             else:
-                player2.take_damage(self.__use_move())
+                p2.take_damage(self.__use_move())
         elif self.target == "mana":
-            if player1.mana > player2.mana:
-                player1.take_damage(self.__use_move())
+            if p1.mana > p2.mana:
+                p1.take_damage(self.__use_move())
             else:
-                player2.take_damage(self.__use_move())
+                p2.take_damage(self.__use_move())
     def __use_move(self):
-        pass
+        if random.random > 0.75:
+            self.change_mana(self.move1.cost)
+            return self.move1.damage
 
 class Move:
     def __init__(self, name, damage, cost):

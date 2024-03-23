@@ -1,4 +1,5 @@
 import gameplay
+import random
 
 class ExampleEnemy(gameplay.Enemy):
     def __init__(self):
