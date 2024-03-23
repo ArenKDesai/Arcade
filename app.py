@@ -4,9 +4,10 @@ pygame.init()
 import sys
 import pygame_gui
 import gameplay
+from characters import all_characters, all_enemies, all_moves
 
 # Global variables
-DISPLAYSURF = pygame.display.set_mode((1000, 600))
+DISPLAYSURF = pygame.display.set_mode((1440, 900))
 # DISPLAYSURF = pygame.display.set_mode((1000, 600), pygame.FULLSCREEN)
 pygame.display.set_caption('Arcade Game')
 manager = pygame_gui.UIManager((1000, 600), 'theme.json')
@@ -14,6 +15,11 @@ color1 = pygame.Color(0, 0, 0)         # Black
 color2 = pygame.Color(255, 255, 255)   # White
 color3 = pygame.Color(128, 128, 128)   # Grey
 color4 = pygame.Color(62, 180, 137)    # Mint
+
+# Current player and enemy
+player1 = None
+player2 = None
+enemy = None
 
 FPS = pygame.time.Clock()
 
@@ -63,7 +69,7 @@ def character_icons():
                                             manager=manager)
     return c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon
 
-def select_attribute(character1, character2, character3, character4, character5, character6,
+def select_item(chosen_char, character1, character2, character3, character4, character5, character6,
                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon):
     character1.kill()
     character2.kill()
@@ -78,9 +84,20 @@ def select_attribute(character1, character2, character3, character4, character5,
     c4_icon.kill()
     c5_icon.kill()
     c6_icon.kill()
-    # TODO: Attribute Selection
-    attribute = None
-    return attribute
+
+    player1 = all_characters[chosen_char]
+    # TODO make player choose player2
+    player2 = all_characters["wizard"]
+    # TODO: Item Selection
+    item = None
+    start_battle(player1, player2, enemy)
+    return item
+
+# Begin battle
+def start_battle(player1, player2, enemy):
+    battling = True
+    pass
+    
 
 running = True
 battling = False
@@ -101,28 +118,29 @@ if __name__ == "__main__":
                     character1, character2, character3, character4, character5, character6 = character_selection()
                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon = character_icons()
                 # TODO this sucks a lot
+                # TODO add secondary character
                 elif event.ui_element == character1:
-                    select_attribute(character1, character2, character3, character4, character5, character6,
+                    select_item("c1", character1, character2, character3, character4, character5, character6,
                                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character2:
-                    select_attribute(character1, character2, character3, character4, character5, character6,
+                    select_item("c2", character1, character2, character3, character4, character5, character6,
                                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character3:
-                    select_attribute(character1, character2, character3, character4, character5, character6,
+                    select_item("c3", character1, character2, character3, character4, character5, character6,
                                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character4:
-                    select_attribute(character1, character2, character3, character4, character5, character6,
+                    select_item("c4", character1, character2, character3, character4, character5, character6,
                                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character5:
-                    select_attribute(character1, character2, character3, character4, character5, character6,
+                    select_item("c5", character1, character2, character3, character4, character5, character6,
                                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
                 elif event.ui_element == character6:
-                    select_attribute(character1, character2, character3, character4, character5, character6,
+                    select_item("c6", character1, character2, character3, character4, character5, character6,
                                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
 
             manager.process_events(event)
         if(battling):
-            gameplay.battle(player1, player2, enemy, attribute)
+            gameplay.battle(player1, player2, enemy)
         # Reset the screen
         manager.update(time_delta)
         DISPLAYSURF.fill(color1)

@@ -74,6 +74,7 @@ class Enemy(Character):
                 p2.take_damage(self.__use_move())
     # Will be used to determine which move the enemy uses
     def __use_move(self):
+        # TODO may have to update for more interesting moves
         if random.random > 0.65 or self.mana < self.move2.cost:
             return self.move1.damage
         else:
@@ -91,8 +92,14 @@ class Move:
 
 def speed_check(player1, player2, enemy):
     order = [player1, player2, enemy]
-    order.sort(key=lambda x: x.speed, reverse=True)
+    order.sort(key=lambda x: x.speed, reverse=True) 
     return order
 
 def battle(player1, player2, enemy, attribute):
     order = speed_check(player1, player2, enemy)
+    for char in order:
+        if char.is_alive():
+            if isinstance(char, Player):
+                pass
+            else:
+                enemy.attack(player1, player2)

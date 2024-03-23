@@ -11,5 +11,10 @@ all_enemies = {
 }
 
 all_characters = {
-
+    "c1": gameplay.Character("Knight", 100, 10, 5, 5, 10),
+    "wizard": gameplay.Character("Wizard", 50, 5, 5, 10, 20),
+    "rogue": gameplay.Character("Rogue", 75, 10, 5, 10, 10),
+    "barbarian": gameplay.Character("Barbarian", 150, 15, 10, 5, 5),
+    "archer": gameplay.Character("Archer", 75, 10, 5, 10, 10),
+    "cleric": gameplay.Character("Cleric", 100, 5, 10, 5, 10)
 }
