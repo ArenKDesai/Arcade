@@ -3,6 +3,7 @@ from pygame.locals import *
 pygame.init()
 import sys
 import pygame_gui
+import gameplay
 
 # Global variables
 DISPLAYSURF = pygame.display.set_mode((1000, 600))
@@ -13,6 +14,10 @@ color1 = pygame.Color(0, 0, 0)         # Black
 color2 = pygame.Color(255, 255, 255)   # White
 color3 = pygame.Color(128, 128, 128)   # Grey
 color4 = pygame.Color(62, 180, 137)    # Mint
+
+# Variables for Gameplay
+players = []
+enemy = None
 
 FPS = pygame.time.Clock()
 

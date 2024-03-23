@@ -31,4 +31,6 @@ class Player(Character):
     def __init__(self, name, hp, attack, defense, speed, mana):
         super().__init__(name, hp, attack, defense, speed, mana)
 
-    
+class Enemy(Character):
+    def __init__(self, name, hp, attack, defense, speed, mana):
+        super().__init__(name, hp, attack, defense, speed, mana)
