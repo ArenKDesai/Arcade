@@ -77,8 +77,7 @@ def select_attribute(character1, character2, character3, character4, character5,
     c4_icon.kill()
     c5_icon.kill()
     c6_icon.kill()
-
-    # Attribute Selection
+    # TODO: Attribute Selection
 
 running = True
 if __name__ == "__main__":
