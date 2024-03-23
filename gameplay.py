@@ -85,7 +85,7 @@ class Move:
         self.name = name
         self.damage = damage
         self.cost = cost
-
+    # TODO implement target
     def __str__(self):
         return f"{self.name} does {self.damage} damage and costs {self.cost} mana."
 
