@@ -30,6 +30,8 @@ class Player(Character):
     def __init__(self, name, hp, attack, defense, speed, mana):
         super().__init__(name, hp, attack, defense, speed, mana)
 
+# Enemies have two attacks, one basic, one special. The speical takes mana and happens less frequently.
+# The target attribute will determine which character the enemy will attack.
 class Enemy(Character):
     def __init__(self, name, hp, attack, defense, speed, mana, target, move1, move2):
         super().__init__(name, hp, attack, defense, speed, mana)
