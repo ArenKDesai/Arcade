@@ -14,32 +14,37 @@ color2 = pygame.Color(255, 255, 255)   # White
 color3 = pygame.Color(128, 128, 128)   # Grey
 color4 = pygame.Color(62, 180, 137)    # Mint
 
-test = False
-
 FPS = pygame.time.Clock()
 
-def start_game():
+def character_selection():
     # Character Selection
-    test = True
-    character1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 50), (150, 200)),
+    character1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 250), (150, 50)),
                                             text='C1',
                                             manager=manager)
-    character2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 50), (150, 200)),
+    
+    character2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 250), (150, 50)),
                                             text='C2',
                                             manager=manager)
-    character3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((700, 50), (150, 200)),
+    character3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((700, 250), (150, 50)),
                                             text='C3',
                                             manager=manager)
-    character4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 300), (150, 200)),
+    character4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 450), (150, 50)),
                                             text='C4',
                                             manager=manager)
-    character5 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 300), (150, 200)),
+    character5 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 450), (150, 50)),
                                             text='C5',
                                             manager=manager)
-    character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((700, 300), (150, 200)),
+    character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((700, 450), (150, 50)),
                                             text='C6',
                                             manager=manager)
     return character1, character2, character3, character4, character5, character6
+
+def character_icons():
+    # Character Icons
+    # TODO: could make this over the button
+    c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((100, 90), (150, 150)),
+                                          image_surface=pygame.image.load('artwork/c1_icon.png'),
+                                          manager=manager)
 
 def select_attribute(character1, character2, character3, character4, character5, character6):
     character1.kill()
@@ -65,31 +70,21 @@ if __name__ == "__main__":
                 if event.ui_element == start_button:
                     start_button.kill()
                     # TODO: make this suck less
-                    character1, character2, character3, character4, character5, character6 = start_game()
+                    character1, character2, character3, character4, character5, character6 = character_selection()
+                    character_icons()
                 elif event.ui_element == character1:
-                    print("Character 1 selected")
                     select_attribute(character1, character2, character3, character4, character5, character6)
                 elif event.ui_element == character2:
-                    print("Character 2 selected")
                     select_attribute(character1, character2, character3, character4, character5, character6)
                 elif event.ui_element == character3:
-                    print("Character 3 selected")
                     select_attribute(character1, character2, character3, character4, character5, character6)
                 elif event.ui_element == character4:
-                    print("Character 4 selected")
                     select_attribute(character1, character2, character3, character4, character5, character6)
                 elif event.ui_element == character5:
-                    print("Character 5 selected")
                     select_attribute(character1, character2, character3, character4, character5, character6)
                 elif event.ui_element == character6:
-                    print("Character 6 selected")
                     select_attribute(character1, character2, character3, character4, character5, character6)
             manager.process_events(event)
-        if test:
-            button_image = pygame.image.load("artwork/cat_icon.jpg").convert_alpha()
-            button_rect = button_image.get_rect()
-            button_rect.topleft = character1.rect.topleft
-            DISPLAYSURF.blit(button_image, button_rect)
 
         # Reset the screen
         manager.update(time_delta)
