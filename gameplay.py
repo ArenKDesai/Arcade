@@ -70,10 +70,13 @@ class Enemy(Character):
                 p1.take_damage(self.__use_move())
             else:
                 p2.take_damage(self.__use_move())
+    # Will be used to determine which move the enemy uses
     def __use_move(self):
-        if random.random > 0.75:
-            self.change_mana(self.move1.cost)
+        if random.random > 0.65 or self.mana < self.move2.cost:
             return self.move1.damage
+        else:
+            self.change_mana(self.move2.cost)
+            return self.move2.damage
 
 class Move:
     def __init__(self, name, damage, cost):
