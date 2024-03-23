@@ -15,10 +15,6 @@ color2 = pygame.Color(255, 255, 255)   # White
 color3 = pygame.Color(128, 128, 128)   # Grey
 color4 = pygame.Color(62, 180, 137)    # Mint
 
-# Variables for Gameplay
-players = []
-enemy = None
-
 FPS = pygame.time.Clock()
 
 def character_selection():
@@ -83,8 +79,11 @@ def select_attribute(character1, character2, character3, character4, character5,
     c5_icon.kill()
     c6_icon.kill()
     # TODO: Attribute Selection
+    attribute = None
+    return attribute
 
 running = True
+battling = False
 if __name__ == "__main__":
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 350), (200, 100)),
                                             text='START',
@@ -122,7 +121,8 @@ if __name__ == "__main__":
                                      c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
 
             manager.process_events(event)
-
+        if(battling):
+            gameplay.battle(player1, player2, enemy, attribute)
         # Reset the screen
         manager.update(time_delta)
         DISPLAYSURF.fill(color1)

@@ -32,5 +32,23 @@ class Player(Character):
         super().__init__(name, hp, attack, defense, speed, mana)
 
 class Enemy(Character):
-    def __init__(self, name, hp, attack, defense, speed, mana):
+    def __init__(self, name, hp, attack, defense, speed, mana, moves):
         super().__init__(name, hp, attack, defense, speed, mana)
+        self.moves = moves
+
+class Move:
+    def __init__(self, name, damage, cost):
+        self.name = name
+        self.damage = damage
+        self.cost = cost
+
+    def __str__(self):
+        return f"{self.name} does {self.damage} damage and costs {self.cost} mana."
+
+def speed_check(player1, player2, enemy):
+    order = [player1, player2, enemy]
+    order.sort(key=lambda x: x.speed, reverse=True)
+    return order
+
+def battle(player1, player2, enemy, attribute):
+    order = speed_check(player1, player2, enemy)
