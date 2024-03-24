@@ -18,8 +18,7 @@ DBROWN = pygame.Color(60, 54, 51)
 
 # Handling controller input
 joystick = None
-buttons_array = [[None,None],[None,None]]
-selected_button = ""
+selected_button = None
 
 # Current player and enemy
 player1 = None
@@ -111,6 +110,19 @@ def start_battle(player1, player2, enemy):
     player2_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((860, 450), (200, 200)),
                                             image_surface=pygame.image.load(f'artwork/{player2.name}.png'),
                                             manager=manager)
+    # TODO: fill with actual attacks
+    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 700), (200, 100)),
+                                            text=f'test',
+                                            manager=manager)
+    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 700), (200, 100)),
+                                            text=f'test',
+                                            manager=manager)
+    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 700), (200, 100)),
+                                            text=f'test',
+                                            manager=manager)
+    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((100, 700), (200, 100)),
+                                            text=f'test',
+                                            manager=manager)
     
 
 running = True
@@ -118,9 +130,14 @@ if __name__ == "__main__":
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
                                             text='START',
                                             manager=manager)
+    start_bb = gameplay.BoundryButton(start_button, None, None, None, None)
     exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 670), (200, 100)),
                                             text='EXIT',
                                             manager=manager)
+    exit_bb = gameplay.BoundryButton(exit_button, None, None, None, None)
+    start_bb.add_below(exit_button)
+    exit_bb.add_above(start_button)
+    selected_button = start_button
     # Main Game loop
     while(running):
         time_delta = FPS.tick(60)/1000.0
@@ -131,7 +148,7 @@ if __name__ == "__main__":
                 joystick = pygame.joystick.Joystick(event.device_index)
                 joystick.init()
             if joystick:
-                selected_button = gameplay.controller_input(buttons_array, joystick, selected_button)
+                selected_button = gameplay.controller_input(joystick, selected_button)
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == start_button:
                     start_button.kill()

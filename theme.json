@@ -6,7 +6,7 @@
             "normal_bg":"#C7C8CC",
             "hovered_bg":"#ACACB0",
             "disabled_bg":"#25292e",
-            "selected_bg":"#3C3633",
+            "selected_bg":"#000000",
             "dark_bg":"#000000",
             "active_bg":"#88888A",
             "normal_text":"#6D6C5D",

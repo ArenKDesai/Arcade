@@ -110,45 +110,59 @@ def choose_enemy():
     # TODO make this work
     return "goblin"
 
+class BoundryButton:
+    def __init__(self, button, above, below, left, right):
+        self.button = button
+        self.above = above
+        self.below = below
+        self.left = left
+        self.right = right
+    def get_above(self):
+        return self.above
+    def get_below(self):
+        return self.below
+    def get_left(self):
+        return self.left
+    def get_right(self):
+        return self.right
+    def get_button(self):
+        return self.button
+    def add_above(self, button):
+        self.above = button
+    def add_below(self, button):
+        self.below = button
+    def add_left(self, button):
+        self.left = button
+    def add_right(self, button):
+        self.right = button
+
 # Input: controller input, could be movement or pressing
-# Input: button_array, a list of buttons
 # Input: selected button, a string indicating the currently selected button
 # Output: hovers and unhovers buttons
-def controller_input(buttons_array, joystick, selected_button):
+def controller_input(joystick, selected_button):
     # TODO: if on_hovered doesn't work, try select()
     if joystick.get_button(11):
-        if selected_button == "bl" and buttons_array[0][0]:
-            buttons_array[1][0].on_unhovered()
-            buttons_array[0][0].on_hovered()
-            return "tl"
-        elif selected_button == "br":
-            buttons_array[1][1].on_unhovered()
-            buttons_array[0][1].on_hovered()
-            return "tr"
-    elif joystick.get_button(12):
-        if selected_button == "tl":
-            buttons_array[0][0].on_unhovered()
-            buttons_array[1][0].on_hovered()
-            return "bl"
-        elif selected_button == "tr":
-            buttons_array[0][1].on_unhovered()
-            buttons_array[1][1].on_hovered()
-            return "br"
-    elif joystick.get_button(13):
-        if selected_button == "tr":
-            buttons_array[0][1].on_unhovered()
-            buttons_array[1][1].on_hovered()
-            return "tl"
-        elif selected_button == "br":
-            buttons_array[0][1].on_unhovered()
-            buttons_array[1][1].on_hovered()
-            return "bl"
-    elif joystick.get_button(14):
-        if selected_button == "tl":
-            buttons_array[0][0].on_unhovered()
-            buttons_array[1][0].on_hovered()
-            return "tr"
-        elif selected_button == "bl":
-            buttons_array[1][0].on_unhovered()
-            buttons_array[1][1].on_hovered()
-            return "br"
+        if selected_button.get_above() != None:
+            selected_button.get_button().unselect()
+            selected_button = selected_button.get_above()
+            selected_button.get_button().select()
+            return selected_button
+    if joystick.get_button(12):
+        if selected_button.get_below() != None:
+            selected_button.get_button().unselect()
+            selected_button = selected_button.get_below()
+            selected_button.get_button().select()
+            return selected_button
+    if joystick.get_button(13):
+        if selected_button.get_left() != None:
+            selected_button.get_button().unselect()
+            selected_button = selected_button.get_left()
+            selected_button.get_button().select()
+            return selected_button
+    if joystick.get_button(14):
+        if selected_button.get_right() != None:
+            selected_button.get_button().unselect()
+            selected_button = selected_button.get_right()
+            selected_button.get_button().select()
+            return selected_button
+        
