@@ -117,38 +117,38 @@ def choose_enemy():
 def controller_input(buttons_array, joystick, selected_button):
     # TODO: if on_hovered doesn't work, try select()
     if joystick.get_button(11):
-        if selected_button == "bl":
-            buttons_array[0][0].on_hovered()
+        if selected_button == "bl" and buttons_array[0][0]:
             buttons_array[1][0].on_unhovered()
-            selected_button = "tl"
+            buttons_array[0][0].on_hovered()
+            return "tl"
         elif selected_button == "br":
-            buttons_array[0][1].on_hovered()
             buttons_array[1][1].on_unhovered()
-            selected_button = "tr"
+            buttons_array[0][1].on_hovered()
+            return "tr"
     elif joystick.get_button(12):
         if selected_button == "tl":
             buttons_array[0][0].on_unhovered()
             buttons_array[1][0].on_hovered()
-            selected_button = "bl"
+            return "bl"
         elif selected_button == "tr":
             buttons_array[0][1].on_unhovered()
             buttons_array[1][1].on_hovered()
-            selected_button = "br"
+            return "br"
     elif joystick.get_button(13):
         if selected_button == "tr":
             buttons_array[0][1].on_unhovered()
             buttons_array[1][1].on_hovered()
-            selected_button = "tl"
+            return "tl"
         elif selected_button == "br":
-            buttons_array[1][1].on_hovered()
             buttons_array[0][1].on_unhovered()
-            selected_button = "bl"
+            buttons_array[1][1].on_hovered()
+            return "bl"
     elif joystick.get_button(14):
         if selected_button == "tl":
             buttons_array[0][0].on_unhovered()
             buttons_array[1][0].on_hovered()
-            selected_button = "tr"
+            return "tr"
         elif selected_button == "bl":
             buttons_array[1][0].on_unhovered()
             buttons_array[1][1].on_hovered()
-            selected_button = "br"
+            return "br"
