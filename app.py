@@ -148,6 +148,7 @@ if __name__ == "__main__":
                 joystick = pygame.joystick.Joystick(event.device_index)
                 joystick.init()
             if joystick:
+                # sending controller input to controller_input
                 selected_button = gameplay.controller_input(joystick, selected_button)
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == start_button:

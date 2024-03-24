@@ -139,30 +139,30 @@ class BoundryButton:
 # Input: controller input, could be movement or pressing
 # Input: selected button, a string indicating the currently selected button
 # Output: hovers and unhovers buttons
-def controller_input(joystick, selected_button):
+def controller_input(joystick_event, selected_button):
     # TODO: if on_hovered doesn't work, try select()
-    if joystick.get_button(11):
+    if joystick_event == pygame.JOYBUTTONUP:
         if selected_button.get_above() != None:
             selected_button.get_button().unselect()
             selected_button = selected_button.get_above()
             selected_button.get_button().select()
             return selected_button
-    if joystick.get_button(12):
+    if joystick_event == pygame.JOYBUTTONDOWN:
         if selected_button.get_below() != None:
             selected_button.get_button().unselect()
             selected_button = selected_button.get_below()
             selected_button.get_button().select()
             return selected_button
-    if joystick.get_button(13):
-        if selected_button.get_left() != None:
-            selected_button.get_button().unselect()
-            selected_button = selected_button.get_left()
-            selected_button.get_button().select()
-            return selected_button
-    if joystick.get_button(14):
-        if selected_button.get_right() != None:
-            selected_button.get_button().unselect()
-            selected_button = selected_button.get_right()
-            selected_button.get_button().select()
-            return selected_button
+    # if joystick_event == pygame.JOYBUTTONUP:
+    #     if selected_button.get_left() != None:
+    #         selected_button.get_button().unselect()
+    #         selected_button = selected_button.get_left()
+    #         selected_button.get_button().select()
+    #         return selected_button
+    # if joystick.get_button(14):
+    #     if selected_button.get_right() != None:
+    #         selected_button.get_button().unselect()
+    #         selected_button = selected_button.get_right()
+    #         selected_button.get_button().select()
+    #         return selected_button
         
