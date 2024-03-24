@@ -143,15 +143,15 @@ def controller_input(joystick_event, selected_button):
     # TODO: if on_hovered doesn't work, try select()
     if joystick_event == pygame.JOYBUTTONUP:
         if selected_button.get_above() != None:
-            selected_button.get_button().unselect()
+            selected_button.get_button().on_unhovered()
             selected_button = selected_button.get_above()
-            selected_button.get_button().select()
+            selected_button.get_button().on_hovered()
             return selected_button
     if joystick_event == pygame.JOYBUTTONDOWN:
         if selected_button.get_below() != None:
-            selected_button.get_button().unselect()
+            selected_button.get_button().on_unhovered()
             selected_button = selected_button.get_below()
-            selected_button.get_button().select()
+            selected_button.get_button().on_hovered()
             return selected_button
     else:
         return selected_button
