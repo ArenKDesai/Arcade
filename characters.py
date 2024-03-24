@@ -7,7 +7,7 @@ all_moves = {
 }
 
 all_enemies = {
-    "goblin": Enemy("en1", 50, 10, 5, 5, 10, "hp", all_moves["slash"], all_moves["spit"]),
+    "goblin": Enemy("Goblin", 50, 10, 5, 5, 10, "hp", all_moves["slash"], all_moves["spit"]),
 }
 
 all_characters = {

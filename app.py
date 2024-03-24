@@ -98,8 +98,14 @@ def select_item(chosen_char, character1, character2, character3, character4, cha
 # Begin battle
 def start_battle(player1, player2, enemy):
     battling = True
-    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((545, 20), (350, 400)),
+    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((520, 20), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
+                                            manager=manager)
+    player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((380, 450), (200, 200)),
+                                            image_surface=pygame.image.load(f'artwork/{player1.name}.png'),
+                                            manager=manager)
+    player2_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((860, 450), (200, 200)),
+                                            image_surface=pygame.image.load(f'artwork/{player2.name}.png'),
                                             manager=manager)
     
 
