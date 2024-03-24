@@ -141,15 +141,15 @@ if __name__ == "__main__":
     # Main Game loop
     while(running):
         time_delta = FPS.tick(60)/1000.0
+        print(selected_button)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.JOYDEVICEADDED:
                 joystick = pygame.joystick.Joystick(event.device_index)
-                joystick.init()
             if joystick:
                 # sending controller input to controller_input
-                selected_button = gameplay.controller_input(joystick, selected_button)
+                selected_button = gameplay.controller_input(event.type, selected_button)
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == start_button:
                     start_button.kill()
