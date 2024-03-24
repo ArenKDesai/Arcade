@@ -142,6 +142,7 @@ class BoundryButton:
 def controller_input(joystick_event, selected_button):
     # TODO: if on_hovered doesn't work, try select()
     if joystick_event == pygame.JOYBUTTONUP:
+        print("working")
         if selected_button.get_above() != None:
             selected_button.get_button().on_unhovered()
             selected_button = selected_button.get_above()
