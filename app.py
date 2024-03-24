@@ -88,22 +88,28 @@ def select_item(chosen_char, character1, character2, character3, character4, cha
 
     player1 = all_characters[chosen_char]
     # TODO make player choose player2
-    player2 = all_characters["wizard"]
+    player2 = all_characters["c2"]
     # TODO: Item Selection
     item = None
+    enemy = all_enemies["goblin"]
     start_battle(player1, player2, enemy)
     return item
 
 # Begin battle
 def start_battle(player1, player2, enemy):
     battling = True
-    pass
+    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((545, 20), (350, 400)),
+                                            image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
+                                            manager=manager)
     
 
 running = True
 if __name__ == "__main__":
-    start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((400, 350), (200, 100)),
+    start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
                                             text='START',
+                                            manager=manager)
+    exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 670), (200, 100)),
+                                            text='EXIT',
                                             manager=manager)
     # Main Game loop
     while(running):
@@ -114,9 +120,12 @@ if __name__ == "__main__":
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == start_button:
                     start_button.kill()
+                    exit_button.kill()
                     # TODO: make this suck less
                     character1, character2, character3, character4, character5, character6 = character_selection()
                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon = character_icons()
+                elif event.ui_element == exit_button:
+                    running = False
                 # TODO this sucks a lot
                 # TODO add secondary character
                 elif event.ui_element == character1:

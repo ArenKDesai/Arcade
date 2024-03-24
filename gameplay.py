@@ -103,3 +103,7 @@ def battle(player1, player2, enemy, attribute):
                 pass
             else:
                 enemy.attack(player1, player2)
+
+def choose_enemy():
+    # TODO make this work
+    return "goblin"
