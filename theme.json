@@ -4,7 +4,7 @@
         "colours":
         {
             "normal_bg":"#C7C8CC",
-            "hovered_bg":"#ACACB0",
+            "hovered_bg":"#000000",
             "disabled_bg":"#25292e",
             "selected_bg":"#000000",
             "dark_bg":"#000000",
