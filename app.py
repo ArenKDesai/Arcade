@@ -135,8 +135,8 @@ if __name__ == "__main__":
                                             text='EXIT',
                                             manager=manager)
     exit_bb = gameplay.BoundryButton(exit_button, None, None, None, None)
-    start_bb.add_below(exit_button)
-    exit_bb.add_above(start_button)
+    start_bb.add_below(start_bb)
+    exit_bb.add_above(exit_bb)
     selected_button = start_button
     # Main Game loop
     while(running):
