@@ -153,6 +153,8 @@ def controller_input(joystick_event, selected_button):
             selected_button = selected_button.get_below()
             selected_button.get_button().select()
             return selected_button
+    else:
+        return selected_button
     # if joystick_event == pygame.JOYBUTTONUP:
     #     if selected_button.get_left() != None:
     #         selected_button.get_button().unselect()
