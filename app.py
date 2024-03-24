@@ -16,6 +16,10 @@ TAN = pygame.Color(168, 124, 124)
 BROWN = pygame.Color(80, 60, 60)
 DBROWN = pygame.Color(60, 54, 51)
 
+# Handling controller input
+joystick = None
+buttons_array = [[None,None],[None,None]]
+selected_button = ""
 
 # Current player and enemy
 player1 = None
@@ -123,6 +127,11 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.JOYDEVICEADDED:
+                joystick = pygame.joystick.Joystick(event.device_index)
+                joystick.init()
+            if joystick:
+                gameplay.controller_input(buttons_array, joystick, selected_button)
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == start_button:
                     start_button.kill()

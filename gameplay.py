@@ -1,4 +1,6 @@
 import random
+import pygame
+import pygame_gui
 
 class Character:
     def __init__(self, name, hp, attack, defense, speed, mana):
@@ -107,3 +109,46 @@ def battle(player1, player2, enemy, attribute):
 def choose_enemy():
     # TODO make this work
     return "goblin"
+
+# Input: controller input, could be movement or pressing
+# Input: button_array, a list of buttons
+# Input: selected button, a string indicating the currently selected button
+# Output: hovers and unhovers buttons
+def controller_input(buttons_array, joystick, selected_button):
+    # TODO: if on_hovered doesn't work, try select()
+    if joystick.get_button(11):
+        if selected_button == "bl":
+            buttons_array[0][0].on_hovered()
+            buttons_array[1][0].on_unhovered()
+            selected_button = "tl"
+        elif selected_button == "br":
+            buttons_array[0][1].on_hovered()
+            buttons_array[1][1].on_unhovered()
+            selected_button = "tr"
+    elif joystick.get_button(12):
+        if selected_button == "tl":
+            buttons_array[0][0].on_unhovered()
+            buttons_array[1][0].on_hovered()
+            selected_button = "bl"
+        elif selected_button == "tr":
+            buttons_array[0][1].on_unhovered()
+            buttons_array[1][1].on_hovered()
+            selected_button = "br"
+    elif joystick.get_button(13):
+        if selected_button == "tr":
+            buttons_array[0][1].on_unhovered()
+            buttons_array[1][1].on_hovered()
+            selected_button = "tl"
+        elif selected_button == "br":
+            buttons_array[1][1].on_hovered()
+            buttons_array[0][1].on_unhovered()
+            selected_button = "bl"
+    elif joystick.get_button(14):
+        if selected_button == "tl":
+            buttons_array[0][0].on_unhovered()
+            buttons_array[1][0].on_hovered()
+            selected_button = "tr"
+        elif selected_button == "bl":
+            buttons_array[1][0].on_unhovered()
+            buttons_array[1][1].on_hovered()
+            selected_button = "br"
