@@ -31,6 +31,7 @@ battling = False
 FPS = pygame.time.Clock()
 
 def exit_game():
+    print("Exiting game")
     running = False
     pygame.quit()
     sys.exit()
