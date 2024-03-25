@@ -148,13 +148,13 @@ if __name__ == "__main__":
                 joystick = pygame.joystick.Joystick(event.device_index)
             if joystick:
                 # sending controller input to controller_input
-                for button in range(joystick.get_numbuttons()):
-                    if joystick.get_button(button):
-                        print(f'Button {button} pressed')
-                        print(f'Number of buttons: {joystick.get_numbuttons()}')
-                        print(f'Number of axes: {joystick.get_numaxes()}')
-                        print(f'Number of balls: {joystick.get_numballs()}')
-                        print(f'Number of hats: {joystick.get_numhats()}')
+                print(f'axis 0: {joystick.get_axis(0)}')
+                print(f'axis 1: {joystick.get_axis(1)}')
+                print(f'axis 2: {joystick.get_axis(2)}')
+                print(f'axis 3: {joystick.get_axis(3)}')
+                print(f'axis 4: {joystick.get_axis(3)}')
+                print(f'axis 5: {joystick.get_axis(3)}')
+                
                 # selected_button = gameplay.controller_input(event.type, selected_button)
             elif event.type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == start_button:
