@@ -157,6 +157,7 @@ if __name__ == "__main__":
     current_elements.append(exit_bb)
     # Main Game loop
     while(running):
+        print(selected_button.get_button())
         time_delta = FPS.tick(60)/1000.0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
