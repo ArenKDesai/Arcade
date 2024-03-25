@@ -140,6 +140,8 @@ class BoundryButton:
 # Input: selected button, a string indicating the currently selected button
 # Output: hovers and unhovers buttons
 def controller_input(x_axis, y_axis, selected_button):
+    print(x_axis, y_axis)
+    print(f'selected_button: {selected_button.get_button().get_text()}')
     if (x_axis > -0.9 and selected_button.get_left() != None):
         selected_button.get_button().unselect()
         selected_button = selected_button.get_left()
