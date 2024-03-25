@@ -1,2 +1,3 @@
 pygame
 pygame_gui
+playsound==1.2.2

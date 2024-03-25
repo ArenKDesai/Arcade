@@ -5,9 +5,7 @@ import sys
 import pygame_gui
 import gameplay
 from characters import all_characters, all_enemies, all_moves
-import playsound
-import os
-import threading
+import sound_player
 
 # Global variables
 DISPLAYSURF = pygame.display.set_mode((1440, 900))
@@ -174,7 +172,7 @@ if __name__ == "__main__":
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
-                        sound_thread = threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','191412-Modular_UI_-Solo_Beeps-050.wav'), True)).start()
+                        sound_player.button_sound()
                         element.press()
                         break
 
