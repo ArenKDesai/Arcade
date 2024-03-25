@@ -37,7 +37,6 @@ def exit_game():
 
 def clear_elements():
     for element in current_elements:
-        print(element)
         if type(element) == gameplay.BetterButton:
             element.button.kill()
         else:
@@ -96,6 +95,7 @@ def character_selection():
     current_elements.append(c4_icon)
     current_elements.append(c5_icon)
     current_elements.append(c6_icon)
+    selected_button = c1_button
     return
 
 def run_start_button():
@@ -160,7 +160,7 @@ if __name__ == "__main__":
         time_delta = FPS.tick(60)/1000.0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                exit_game()
             elif event.type == pygame.JOYDEVICEADDED:
                 joystick = pygame.joystick.Joystick(event.device_index)
             elif joystick:
