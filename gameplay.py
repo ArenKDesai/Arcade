@@ -143,7 +143,7 @@ def controller_input(x_axis, y_axis, selected_button, x_button):
     # print(x_axis, y_axis)
     # print(f'selected_button: {selected_button.get_button()}')
     if (x_button):
-        selected_button.get_button().process_event(pygame_gui.UI_BUTTON_PRESSED)
+        pygame.event.post(pygame_gui.events.UIButtonPressed(selected_button.get_button(), pygame_gui.UI_BUTTON_PRESSED))
         return selected_button
     elif (x_axis < -0.9 and selected_button.get_left() != None):
         print('moving left')
