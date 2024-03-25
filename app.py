@@ -5,6 +5,9 @@ import sys
 import pygame_gui
 import gameplay
 from characters import all_characters, all_enemies, all_moves
+import playsound
+import os
+import threading
 
 # Global variables
 DISPLAYSURF = pygame.display.set_mode((1440, 900))
@@ -106,7 +109,6 @@ def run_start_button():
 
 def select_item():
     clear_elements()
-
     player1 = all_characters['c1']
     # TODO make player choose player2
     player2 = all_characters["c2"]
@@ -158,7 +160,6 @@ if __name__ == "__main__":
     current_elements.append(exit_bb)
     # Main Game loop
     while(running):
-        print(selected_button.get_button())
         time_delta = FPS.tick(60)/1000.0
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -173,6 +174,7 @@ if __name__ == "__main__":
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
+                        sound_thread = threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','191412-Modular_UI_-Solo_Beeps-050.wav'), True)).start()
                         element.press()
                         break
 

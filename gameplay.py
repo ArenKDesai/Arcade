@@ -143,8 +143,6 @@ class BetterButton:
 # Input: selected button, a string indicating the currently selected button
 # Output: selects and unselects buttons
 def controller_input(x_axis, y_axis, selected_button, x_button):
-    # print(x_axis, y_axis)
-    # print(f'selected_button: {selected_button.get_button()}')
     if (x_button):
         selected_button.press()
         return None
