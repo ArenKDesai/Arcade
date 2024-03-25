@@ -137,7 +137,7 @@ if __name__ == "__main__":
     exit_bb = gameplay.BoundryButton(exit_button, None, None, None, None)
     start_bb.add_below(start_bb)
     exit_bb.add_above(exit_bb)
-    selected_button = start_button
+    selected_button = start_bb
     # Main Game loop
     while(running):
         time_delta = FPS.tick(60)/1000.0
