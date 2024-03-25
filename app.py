@@ -15,6 +15,8 @@ DTAN = pygame.Color(126, 99, 99)
 TAN = pygame.Color(168, 124, 124)
 BROWN = pygame.Color(80, 60, 60)
 DBROWN = pygame.Color(60, 54, 51)
+current_elements = []
+running = True
 
 # Handling controller input
 joystick = None
@@ -27,6 +29,20 @@ enemy = None
 battling = False
 
 FPS = pygame.time.Clock()
+
+def exit_game():
+    running = False
+    pygame.quit()
+    sys.exit()
+
+def clear_elements():
+    for element in current_elements:
+        print(element)
+        if type(element) == gameplay.BetterButton:
+            element.button.kill()
+        else:
+            element.kill()
+    current_elements.clear()
 
 def character_selection():
     # Character Selection
@@ -48,11 +64,12 @@ def character_selection():
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
                                             text='C6',
                                             manager=manager)
-    return character1, character2, character3, character4, character5, character6
-
-def character_icons():
-    # Character Icons
-    # TODO: could make this over the button
+    current_elements.append(gameplay.BetterButton(character1, None, character4, None, character2, select_item))
+    current_elements.append(gameplay.BetterButton(character2, None, character5, character1, character3, select_item))
+    current_elements.append(gameplay.BetterButton(character3, None, character6, character2, None, select_item))
+    current_elements.append(gameplay.BetterButton(character4, character1, None, None, character5, select_item))
+    current_elements.append(gameplay.BetterButton(character5, character2, None, character4, character6, select_item))
+    current_elements.append(gameplay.BetterButton(character6, character3, None, character5, None, select_item))
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 125), (150, 150)),
                                               image_surface=pygame.image.load('artwork/c1_icon.png'),
                                               manager=manager)
@@ -71,25 +88,23 @@ def character_icons():
     c6_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((1005, 525), (150, 150)),
                                             image_surface=pygame.image.load('artwork/c6_icon.png'),
                                             manager=manager)
-    return c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon
+    current_elements.append(c1_icon)
+    current_elements.append(c2_icon)
+    current_elements.append(c3_icon)
+    current_elements.append(c4_icon)
+    current_elements.append(c5_icon)
+    current_elements.append(c6_icon)
+    return
 
-def select_item(chosen_char, character1, character2, character3, character4, character5, character6,
-                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon):
-    character1.kill()
-    character2.kill()
-    character3.kill()
-    character4.kill()
-    character5.kill()
-    character6.kill()
+def run_start_button():
+    clear_elements()
+    character_selection()
+    return
 
-    c1_icon.kill()
-    c2_icon.kill()
-    c3_icon.kill()
-    c4_icon.kill()
-    c5_icon.kill()
-    c6_icon.kill()
+def select_item():
+    clear_elements()
 
-    player1 = all_characters[chosen_char]
+    player1 = all_characters['c1']
     # TODO make player choose player2
     player2 = all_characters["c2"]
     # TODO: Item Selection
@@ -124,20 +139,20 @@ def start_battle(player1, player2, enemy):
                                             text=f'test',
                                             manager=manager)
     
-
-running = True
 if __name__ == "__main__":
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
                                             text='START',
                                             manager=manager)
-    start_bb = gameplay.BoundryButton(start_button, None, None, None, None)
+    start_bb = gameplay.BetterButton(start_button, None, None, None, None, run_start_button)
     exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 670), (200, 100)),
                                             text='EXIT',
                                             manager=manager)
-    exit_bb = gameplay.BoundryButton(exit_button, None, None, None, None)
+    exit_bb = gameplay.BetterButton(exit_button, None, None, None, None, exit_game)
     start_bb.add_below(exit_bb)
     exit_bb.add_above(start_bb)
     selected_button = start_bb
+    current_elements.append(start_bb)
+    current_elements.append(exit_bb)
     # Main Game loop
     while(running):
         time_delta = FPS.tick(60)/1000.0
@@ -150,34 +165,10 @@ if __name__ == "__main__":
                 # sending controller input to controller_input
                 selected_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
-                if event.ui_element == start_button:
-                    start_button.kill()
-                    exit_button.kill()
-                    # TODO: make this suck less
-                    character1, character2, character3, character4, character5, character6 = character_selection()
-                    c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon = character_icons()
-                elif event.ui_element == exit_button:
-                    running = False
-                # TODO this sucks a lot
-                # TODO add secondary character
-                elif event.ui_element == character1:
-                    select_item("c1", character1, character2, character3, character4, character5, character6,
-                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
-                elif event.ui_element == character2:
-                    select_item("c2", character1, character2, character3, character4, character5, character6,
-                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
-                elif event.ui_element == character3:
-                    select_item("c3", character1, character2, character3, character4, character5, character6,
-                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
-                elif event.ui_element == character4:
-                    select_item("c4", character1, character2, character3, character4, character5, character6,
-                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
-                elif event.ui_element == character5:
-                    select_item("c5", character1, character2, character3, character4, character5, character6,
-                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
-                elif event.ui_element == character6:
-                    select_item("c6", character1, character2, character3, character4, character5, character6,
-                                     c1_icon, c2_icon, c3_icon, c4_icon, c5_icon, c6_icon)
+                for element in current_elements:
+                    if event.ui_element == element.button:
+                        element.press()
+                        break
 
             manager.process_events(event)
         if(battling):

@@ -110,13 +110,14 @@ def choose_enemy():
     # TODO make this work
     return "goblin"
 
-class BoundryButton:
-    def __init__(self, button, above, below, left, right):
+class BetterButton:
+    def __init__(self, button, above, below, left, right, function):
         self.button = button
         self.above = above
         self.below = below
         self.left = left
         self.right = right
+        self.function = function
     def get_above(self):
         return self.above
     def get_below(self):
@@ -135,10 +136,12 @@ class BoundryButton:
         self.left = button
     def add_right(self, button):
         self.right = button
+    def press(self):
+        self.function()
 
 # Input: controller input, could be movement or pressing
 # Input: selected button, a string indicating the currently selected button
-# Output: hovers and unhovers buttons
+# Output: selects and unselects buttons
 def controller_input(x_axis, y_axis, selected_button, x_button):
     # print(x_axis, y_axis)
     # print(f'selected_button: {selected_button.get_button()}')
