@@ -145,26 +145,26 @@ def controller_input(x_axis, y_axis, selected_button):
     if (x_axis < -0.9 and selected_button.get_left() != None):
         print('moving left')
         selected_button.get_button().unselect()
-        selected_button = selected_button.get_left()
-        selected_button.get_button().select()
-        return selected_button
+        new_button = selected_button.get_left()
+        new_button.get_button().select()
+        return new_button
     elif (x_axis > 0.9 and selected_button.get_right() != None):
         print('moving right')
         selected_button.get_button().unselect()
-        selected_button = selected_button.get_right()
-        selected_button.get_button().select()
-        return selected_button
+        new_button = selected_button.get_right()
+        new_button.get_button().select()
+        return new_button
     elif (y_axis < -0.9 and selected_button.get_above() != None):
         print('moving up')
         selected_button.get_button().unselect()
-        selected_button = selected_button.get_above()
-        selected_button.get_button().select()
-        return selected_button
+        new_button = selected_button.get_above()
+        new_button.get_button().select()
+        return new_button
     elif (y_axis > 0.9 and selected_button.get_below() != None):
         print('moving down')
         selected_button.get_button().unselect()
-        selected_button = selected_button.get_below()
-        selected_button.get_button().select()
-        return selected_button
+        new_button = selected_button.get_below()
+        new_button.get_button().select()
+        return new_button
     else:
         return selected_button
