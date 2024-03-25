@@ -142,22 +142,22 @@ class BoundryButton:
 def controller_input(x_axis, y_axis, selected_button):
     print(x_axis, y_axis)
     print(f'selected_button: {selected_button.get_button()}')
-    if (x_axis > -0.9 and selected_button.get_left() != None):
+    if (x_axis < -0.9 and selected_button.get_left() != None):
         selected_button.get_button().unselect()
         selected_button = selected_button.get_left()
         selected_button.get_button().select()
         return selected_button
-    elif (x_axis < 0.9 and selected_button.get_right() != None):
+    elif (x_axis > 0.9 and selected_button.get_right() != None):
         selected_button.get_button().unselect()
         selected_button = selected_button.get_right()
         selected_button.get_button().select()
         return selected_button
-    elif (y_axis > -0.9 and selected_button.get_above() != None):
+    elif (y_axis < -0.9 and selected_button.get_above() != None):
         selected_button.get_button().unselect()
         selected_button = selected_button.get_above()
         selected_button.get_button().select()
         return selected_button
-    elif (y_axis < 0.9 and selected_button.get_below() != None):
+    elif (y_axis > 0.9 and selected_button.get_below() != None):
         selected_button.get_button().unselect()
         selected_button = selected_button.get_below()
         selected_button.get_button().select()
