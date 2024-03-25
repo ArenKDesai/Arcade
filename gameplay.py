@@ -147,7 +147,7 @@ def controller_input(x_axis, y_axis, selected_button, x_button):
     # print(f'selected_button: {selected_button.get_button()}')
     if (x_button):
         selected_button.press()
-        return selected_button
+        return None
     elif (x_axis < -0.9 and selected_button.get_left() != None):
         print('moving left')
         selected_button.get_button().unselect()

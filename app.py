@@ -165,7 +165,9 @@ if __name__ == "__main__":
                 joystick = pygame.joystick.Joystick(event.device_index)
             elif joystick:
                 # sending controller input to controller_input
-                selected_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
+                new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
+                if new_button != None:
+                    selected_button = new_button
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
