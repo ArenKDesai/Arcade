@@ -64,12 +64,14 @@ def character_selection():
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
                                             text='C6',
                                             manager=manager)
-    current_elements.append(gameplay.BetterButton(character1, None, character4, None, character2, select_item))
+    c1_button = gameplay.BetterButton(character1, None, character4, None, character2, select_item)
+    current_elements.append(c1_button)
     current_elements.append(gameplay.BetterButton(character2, None, character5, character1, character3, select_item))
     current_elements.append(gameplay.BetterButton(character3, None, character6, character2, None, select_item))
     current_elements.append(gameplay.BetterButton(character4, character1, None, None, character5, select_item))
     current_elements.append(gameplay.BetterButton(character5, character2, None, character4, character6, select_item))
     current_elements.append(gameplay.BetterButton(character6, character3, None, character5, None, select_item))
+    selected_button = c1_button
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 125), (150, 150)),
                                               image_surface=pygame.image.load('artwork/c1_icon.png'),
                                               manager=manager)
