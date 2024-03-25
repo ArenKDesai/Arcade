@@ -160,3 +160,5 @@ def controller_input(x_axis, y_axis, selected_button):
         selected_button = selected_button.get_below()
         selected_button.get_button().select()
         return selected_button
+    else:
+        return selected_button
