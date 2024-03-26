@@ -18,7 +18,6 @@ BROWN = pygame.Color(80, 60, 60)
 DBROWN = pygame.Color(60, 54, 51)
 current_elements = []
 running = True
-delay = None
 
 # Handling controller input
 joystick = None
@@ -67,16 +66,34 @@ def character_selection():
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
                                             text='C6',
                                             manager=manager)
-    c1_button = gameplay.BetterButton(character1, None, character4, None, character2, select_item)
+    c1_button = gameplay.BetterButton(character1, None, None, None, None, select_item)
+    c2_button = gameplay.BetterButton(character2, None, None, None, None, select_item)
+    c3_button = gameplay.BetterButton(character3, None, None, None, None, select_item)
+    c4_button = gameplay.BetterButton(character4, None, None, None, None, select_item)
+    c5_button = gameplay.BetterButton(character5, None, None, None, None, select_item)
+    c6_button = gameplay.BetterButton(character6, None, None, None, None, select_item)
+    # Setting the boundries for the buttons
+    c1_button.add_right(c2_button)
+    c1_button.add_below(c4_button)
+    c2_button.add_right(c3_button)
+    c2_button.add_below(c5_button)
+    c2_button.add_left(c1_button)
+    c3_button.add_below(c6_button)
+    c3_button.add_left(c2_button)
+    c4_button.add_right(c5_button)
+    c4_button.add_above(c1_button)
+    c5_button.add_right(c6_button)
+    c5_button.add_above(c2_button)
+    c5_button.add_left(c4_button)
+    c6_button.add_above(c3_button)
+    c6_button.add_left(c5_button)
     current_elements.append(c1_button)
-    current_elements.append(gameplay.BetterButton(character2, None, character5, character1, character3, select_item))
-    current_elements.append(gameplay.BetterButton(character3, None, character6, character2, None, select_item))
-    current_elements.append(gameplay.BetterButton(character4, character1, None, None, character5, select_item))
-    current_elements.append(gameplay.BetterButton(character5, character2, None, character4, character6, select_item))
-    current_elements.append(gameplay.BetterButton(character6, character3, None, character5, None, select_item))
+    current_elements.append(c2_button)
+    current_elements.append(c3_button)
+    current_elements.append(c4_button)
+    current_elements.append(c5_button)
+    current_elements.append(c6_button)
     selected_button = c1_button
-    print("Character Selection")
-    print(selected_button)
     if joystick:
         c1_button.get_button().select()
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 125), (150, 150)),
@@ -163,16 +180,17 @@ if __name__ == "__main__":
     current_elements.append(exit_bb)
     # Main Game loop
     while(running):
-        print(delay)
         time_delta = FPS.tick(60)/1000.0
         if joystick:
             # sending controller input to controller_input
-            new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0), delay)
+            new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
+            # TODO: this is a stupid fix
+            if selected_button not in current_elements:
+                selected_button = current_elements[0]
             # Selecting a new button
             if new_button != None:
                 selected_button = new_button
                 sound_player.ui_sound()
-            print(selected_button)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit_game()

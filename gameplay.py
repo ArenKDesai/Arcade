@@ -147,14 +147,14 @@ class BetterButton:
 # Input: controller input, could be movement or pressing
 # Input: selected button, a string indicating the currently selected button
 # Output: selects and unselects buttons
-def controller_input(x_axis, y_axis, selected_button, x_button, delay):
+def controller_input(x_axis, y_axis, selected_button, x_button):
     if (x_button):
         if delay != None and time.time() - delay < 0.2:
             return
         delay = time.time()
         selected_button.press()
         sound_player.button_sound()
-        return
+        return None
     elif (x_axis < -0.9 and selected_button.get_left() != None):
         selected_button.get_button().unselect()
         new_button = selected_button.get_left()
