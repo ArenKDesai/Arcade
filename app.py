@@ -184,9 +184,6 @@ if __name__ == "__main__":
         if joystick:
             # sending controller input to controller_input
             new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
-            # TODO: this is a stupid fix
-            if selected_button not in current_elements:
-                selected_button = current_elements[0]
             # Selecting a new button
             if new_button != None:
                 selected_button = new_button
