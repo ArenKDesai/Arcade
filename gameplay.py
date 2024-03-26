@@ -149,9 +149,6 @@ class BetterButton:
 # Output: selects and unselects buttons
 def controller_input(x_axis, y_axis, selected_button, x_button):
     if (x_button):
-        if and time.time() - delay < 0.2:
-            return
-        delay = time.time()
         selected_button.press()
         sound_player.button_sound()
         return None
