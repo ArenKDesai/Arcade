@@ -150,7 +150,7 @@ class BetterButton:
 delay = None
 def controller_input(x_axis, y_axis, selected_button, x_button):
     if (x_button):
-        if time.time() - delay < 0.2:
+        if delay != None and time.time() - delay < 0.2:
             return
         delay = time.time()
         selected_button.press()
