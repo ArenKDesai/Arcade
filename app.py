@@ -21,7 +21,7 @@ running = True
 
 # Handling controller input
 joystick = None
-selected_button = None
+global selected_button
 
 # Current player and enemy
 player1 = None
