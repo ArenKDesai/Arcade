@@ -154,7 +154,6 @@ def controller_input(x_axis, y_axis, selected_button, x_button, delay):
         delay = time.time()
         selected_button.press()
         sound_player.button_sound()
-        print("Button Pressed")
         return
     elif (x_axis < -0.9 and selected_button.get_left() != None):
         selected_button.get_button().unselect()

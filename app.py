@@ -163,9 +163,9 @@ if __name__ == "__main__":
     current_elements.append(exit_bb)
     # Main Game loop
     while(running):
+        print(delay)
         time_delta = FPS.tick(60)/1000.0
         if joystick:
-            print(current_elements)
             # sending controller input to controller_input
             new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0), delay)
             # Selecting a new button
