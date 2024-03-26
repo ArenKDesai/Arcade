@@ -34,6 +34,7 @@ FPS = pygame.time.Clock()
 def exit_game():
     print("Exiting game")
     running = False
+    sound_player.button_sound()
     pygame.quit()
     sys.exit()
 
