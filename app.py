@@ -170,9 +170,9 @@ if __name__ == "__main__":
                 # sending controller input to controller_input
                 new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
                 if new_button != None:
-                    print("New button")
                     selected_button = new_button
                     sound_player.ui_sound()
+                new_button = None
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
