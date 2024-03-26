@@ -2,6 +2,7 @@ import random
 import pygame
 import pygame_gui
 import sound_player
+import time
 
 class Character:
     def __init__(self, name, hp, attack, defense, speed, mana):
@@ -146,8 +147,12 @@ class BetterButton:
 # Input: controller input, could be movement or pressing
 # Input: selected button, a string indicating the currently selected button
 # Output: selects and unselects buttons
+delay = None
 def controller_input(x_axis, y_axis, selected_button, x_button):
     if (x_button):
+        if time.time() - delay < 0.2:
+            return
+        delay = time.time()
         selected_button.press()
         sound_player.button_sound()
         print("Button Pressed")
