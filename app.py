@@ -105,6 +105,7 @@ def character_selection():
     return
 
 def run_start_button():
+    print("running start button")
     clear_elements()
     character_selection()
     return
@@ -178,7 +179,6 @@ if __name__ == "__main__":
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
-                        print("somehow, this was pressed")
                         element.press()
                         sound_player.button_sound()
                         break
