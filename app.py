@@ -172,8 +172,8 @@ if __name__ == "__main__":
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
-                        sound_player.button_sound()
                         element.press()
+                        sound_player.button_sound()
                         break
 
             manager.process_events(event)

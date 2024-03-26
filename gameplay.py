@@ -152,25 +152,21 @@ def controller_input(x_axis, y_axis, selected_button, x_button):
         selected_button.get_button().unselect()
         new_button = selected_button.get_left()
         new_button.get_button().select()
-        sound_player.ui_sound()
         return new_button
     elif (x_axis > 0.9 and selected_button.get_right() != None):
         selected_button.get_button().unselect()
         new_button = selected_button.get_right()
         new_button.get_button().select()
-        sound_player.ui_sound()
         return new_button
     elif (y_axis < -0.9 and selected_button.get_above() != None):
         selected_button.get_button().unselect()
         new_button = selected_button.get_above()
         new_button.get_button().select()
-        sound_player.ui_sound()
         return new_button
     elif (y_axis > 0.9 and selected_button.get_below() != None):
         selected_button.get_button().unselect()
         new_button = selected_button.get_below()
         new_button.get_button().select()
-        sound_player.ui_sound()
         return new_button
     else:
         return None
