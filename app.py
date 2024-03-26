@@ -75,6 +75,7 @@ def character_selection():
     current_elements.append(gameplay.BetterButton(character6, character3, None, character5, None, select_item))
     selected_button = c1_button
     print("Character Selection")
+    print(selected_button)
     if joystick:
         c1_button.get_button().select()
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 125), (150, 150)),

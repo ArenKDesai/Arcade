@@ -140,6 +140,7 @@ class BetterButton:
     def press(self):
         self.function()
 
+
 # Input: controller input, could be movement or pressing
 # Input: selected button, a string indicating the currently selected button
 # Output: selects and unselects buttons
