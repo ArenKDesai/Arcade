@@ -161,18 +161,18 @@ if __name__ == "__main__":
     # Main Game loop
     while(running):
         time_delta = FPS.tick(60)/1000.0
+        if joystick:
+            # sending controller input to controller_input
+            new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
+            if new_button != None:
+                selected_button = new_button
+                sound_player.ui_sound()
+            new_button = None
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit_game()
             elif event.type == pygame.JOYDEVICEADDED:
                 joystick = pygame.joystick.Joystick(event.device_index)
-            elif joystick:
-                # sending controller input to controller_input
-                new_button = gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
-                if new_button != None:
-                    selected_button = new_button
-                    sound_player.ui_sound()
-                new_button = None
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
