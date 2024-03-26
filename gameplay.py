@@ -2,7 +2,6 @@ import random
 import pygame
 import pygame_gui
 import sound_player
-import time
 
 class Character:
     def __init__(self, name, hp, attack, defense, speed, mana):
