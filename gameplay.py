@@ -111,6 +111,8 @@ def choose_enemy():
     # TODO make this work
     return "goblin"
 
+# A class to make buttons easier to work with
+# Will include boundries and a function to call when pressed
 class BetterButton:
     def __init__(self, button, above, below, left, right, function):
         self.button = button
