@@ -98,7 +98,7 @@ def speed_check(player1, player2, enemy):
     order.sort(key=lambda x: x.speed, reverse=True) 
     return order
 
-def battle(player1, player2, enemy, attribute):
+def battle(player1, player2, enemy, item):
     order = speed_check(player1, player2, enemy)
     for char in order:
         if char.is_alive():

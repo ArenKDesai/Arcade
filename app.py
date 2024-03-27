@@ -1,11 +1,22 @@
+import time
+timer = time.time()
+print(f"Importing pygame at {time.time() - timer}")
 import pygame
+print(f"Importing pygame.locals at {time.time() - timer}")
 from pygame.locals import *
+print(f"Running pygame.init at {time.time() - timer}")
 pygame.init()
+print(f"Importing sys at {time.time() - timer}")
 import sys
+print(f"Importing pygame_gui at {time.time() - timer}")
 import pygame_gui
+print(f"Importing gameplay at {time.time() - timer}")
 import gameplay
+print(f"Importing characters at {time.time() - timer}")
 from characters import all_characters, all_enemies, all_moves
+print(f"Importing sound_player at {time.time() - timer}")
 import sound_player
+print(f'Finished imports at {time.time() - timer}')
 
 # Global variables
 DISPLAYSURF = pygame.display.set_mode((1440, 900))
@@ -21,7 +32,7 @@ running = True
 
 # Handling controller input
 joystick = None
-# TODO: Probably don't need this many global vqariables
+# TODO: Probably don't need this many global variables
 selected_button = None
 
 # Current player and enemy
@@ -29,10 +40,11 @@ player1 = None
 player2 = None
 enemy = None
 battling = False
+item = None
 
 FPS = pygame.time.Clock()
 
-def exit_game():
+def exit_game(_):
     print("Exiting game")
     global running
     running = False
@@ -135,7 +147,7 @@ def select_item(char):
     clear_elements()
     global player1
     global player2
-    player1 = all_characters[char]
+    player1 = all_characters[char.lower()]
     # TODO make player choose player2
     player2 = all_characters["c2"]
     # TODO: Item Selection
@@ -176,6 +188,7 @@ def start_battle():
                                             manager=manager)
     
 if __name__ == "__main__":
+    print(f'Starting game at {time.time() - timer}')
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
                                             text='START',
                                             manager=manager)
@@ -200,7 +213,7 @@ if __name__ == "__main__":
                                       selected_button, joystick.get_button(0), generic_input)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                exit_game()
+                exit_game(None)
             elif event.type == pygame.JOYDEVICEADDED:
                 joystick = pygame.joystick.Joystick(event.device_index)
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
@@ -212,7 +225,8 @@ if __name__ == "__main__":
                         break
             manager.process_events(event)
         if(battling):
-            gameplay.battle(player1, player2, enemy)
+            pass
+            # gameplay.battle(player1, player2, enemy, item)
         # Reset the screen
         manager.update(time_delta)
         DISPLAYSURF.fill(DBROWN)
