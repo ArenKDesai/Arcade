@@ -139,16 +139,17 @@ class BetterButton:
         self.left = button
     def add_right(self, button):
         self.right = button
-    def press(self):
-        self.function()
+    # passed generic input
+    def press(self, gen_in):
+        self.function(gen_in)
 
 
 # Input: controller input, could be movement or pressing
 # Input: selected button, a string indicating the currently selected button
 # Output: selects and unselects buttons
-def controller_input(x_axis, y_axis, selected_button, x_button):
+def controller_input(x_axis, y_axis, selected_button, x_button, glob_in):
     if (x_button):
-        selected_button.press()
+        selected_button.press(glob_in)
         sound_player.button_sound()
     elif (x_axis < -0.9 and selected_button.get_left() != None):
         selected_button.get_button().unselect()

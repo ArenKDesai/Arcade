@@ -21,7 +21,11 @@ running = True
 
 # Handling controller input
 joystick = None
-global selected_button
+# TODO: Probably don't need this many global vqariables
+selected_button = None
+c1 = None
+c2 = None
+glob_in = None
 
 # Current player and enemy
 player1 = None
@@ -122,13 +126,14 @@ def character_selection():
     current_elements.append(c6_icon)
     return
 
-def run_start_button():
+def run_start_button(_ = None):
     clear_elements()
     character_selection()
     return
 
-def select_item():
+def select_item(char):
     clear_elements()
+    print(char)
     player1 = all_characters['c1']
     # TODO make player choose player2
     player2 = all_characters["c2"]
@@ -182,8 +187,10 @@ if __name__ == "__main__":
     while(running):
         time_delta = FPS.tick(60)/1000.0
         if joystick:
+            # TODO: Implement controller input
             # sending controller input to controller_input
-            gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), selected_button, joystick.get_button(0))
+            gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), 
+                                      selected_button, joystick.get_button(0), glob_in)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit_game()
@@ -192,7 +199,7 @@ if __name__ == "__main__":
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
-                        element.press()
+                        element.press(glob_in)
                         sound_player.button_sound()
                         break
             manager.process_events(event)
