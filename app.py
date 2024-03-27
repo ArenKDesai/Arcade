@@ -23,9 +23,6 @@ running = True
 joystick = None
 # TODO: Probably don't need this many global vqariables
 selected_button = None
-c1 = None
-c2 = None
-glob_in = None
 
 # Current player and enemy
 player1 = None
@@ -37,6 +34,7 @@ FPS = pygame.time.Clock()
 
 def exit_game():
     print("Exiting game")
+    global running
     running = False
     sound_player.button_sound()
     pygame.quit()
@@ -97,6 +95,7 @@ def character_selection():
     current_elements.append(c4_button)
     current_elements.append(c5_button)
     current_elements.append(c6_button)
+    global selected_button
     selected_button = c1_button
     if joystick:
         c1_button.get_button().select()
@@ -126,26 +125,33 @@ def character_selection():
     current_elements.append(c6_icon)
     return
 
-def run_start_button(_ = None):
+def run_start_button(_):
     clear_elements()
     character_selection()
     return
 
 def select_item(char):
+    # TODO: might be able to have less global variables
     clear_elements()
-    print(char)
-    player1 = all_characters['c1']
+    global player1
+    global player2
+    player1 = all_characters[char]
     # TODO make player choose player2
     player2 = all_characters["c2"]
     # TODO: Item Selection
     item = None
+    global enemy
     enemy = all_enemies["goblin"]
-    start_battle(player1, player2, enemy)
+    start_battle()
     return item
 
 # Begin battle
-def start_battle(player1, player2, enemy):
+def start_battle():
+    global battling
     battling = True
+    global player1
+    global player2
+    global enemy
     enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((520, 20), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
@@ -185,12 +191,13 @@ if __name__ == "__main__":
     current_elements.append(exit_bb)
     # Main Game loop
     while(running):
+        generic_input = None
         time_delta = FPS.tick(60)/1000.0
         if joystick:
-            # TODO: Implement controller input
+            # TODO: Fix controller input
             # sending controller input to controller_input
             gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), 
-                                      selected_button, joystick.get_button(0), glob_in)
+                                      selected_button, joystick.get_button(0), generic_input)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit_game()
@@ -199,7 +206,8 @@ if __name__ == "__main__":
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
-                        element.press(glob_in)
+                        generic_input = element.button.text
+                        element.press(generic_input)
                         sound_player.button_sound()
                         break
             manager.process_events(event)

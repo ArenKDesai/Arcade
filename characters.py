@@ -11,10 +11,10 @@ all_enemies = {
 }
 
 all_characters = {
-    "c1": Character("Knight", 100, 10, 5, 5, 10),
-    "c2": Character("Wizard", 50, 5, 5, 10, 20),
-    "c3": Character("Rogue", 75, 10, 5, 10, 10),
-    "c4": Character("Barbarian", 150, 15, 10, 5, 5),
-    "c5": Character("Archer", 75, 10, 5, 10, 10),
-    "c6": Character("Cleric", 100, 5, 10, 5, 10)
+    "c1": Character("c1", 100, 10, 5, 5, 10),
+    "c2": Character("c2", 50, 5, 5, 10, 20),
+    "c3": Character("c3", 75, 10, 5, 10, 10),
+    "c4": Character("c4", 150, 15, 10, 5, 5),
+    "c5": Character("c5", 75, 10, 5, 10, 10),
+    "c6": Character("c6", 100, 5, 10, 5, 10)
 }
