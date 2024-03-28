@@ -48,9 +48,15 @@ class Character:
 class Player(Character):
     def __init__(self, name, totalHP, attack, defense, speed, mana):
         super().__init__(name, totalHP, attack, defense, speed, mana)
+        self.move1 = Slash(name, user)
+        self.move2 = Spit(name, user)
+        self.move3 = Block(name, user)
+        self.move4 = Stomp(name, user)
 
     def is_enemy(self):
         return False
+    
+
 
 # Enemies have two attacks, one basic, one special. The speical takes mana and happens less frequently.
 # The target attribute will determine which character the enemy will attack.
