@@ -8,4 +8,7 @@
 - Build combat
 - Add sounds
 - Make moves
-- Make transitions
+- Make transitions (scroll opening, walking to / from combat)
+- Make database to hold player data
+- Make icon
+- Make start screen

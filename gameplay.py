@@ -30,8 +30,9 @@ class Character:
         self.mana += amount
 
 class Player(Character):
-    def __init__(self, name, hp, attack, defense, speed, mana):
+    def __init__(self, name, hp, attack, defense, speed, mana, num):
         super().__init__(name, hp, attack, defense, speed, mana)
+        self.num = num
 
 # Enemies have two attacks, one basic, one special. The speical takes mana and happens less frequently.
 # The target attribute will determine which character the enemy will attack.
@@ -98,12 +99,15 @@ def speed_check(player1, player2, enemy):
     order.sort(key=lambda x: x.speed, reverse=True) 
     return order
 
-def battle(player1, player2, enemy, item):
+def battle(player1, player2, enemy):
+    global DISPLAYSURF
     order = speed_check(player1, player2, enemy)
     for char in order:
         if char.is_alive():
             if isinstance(char, Player):
-                pass
+                if(char.num == 1):
+                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), (0, 0, 100, 100))
+                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), (0, 0, 100, 100))
             else:
                 enemy.attack(player1, player2)
 
