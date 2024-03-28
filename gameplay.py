@@ -24,7 +24,6 @@ class Character:
 
     def heal(self, amount):
         self.currentHP += amount
-        print(f"{self.name} heals for 10 HP.")
 
     # Will be used for both using and gaining mana
     def change_mana(self, amount):
@@ -98,13 +97,30 @@ class Enemy(Character):
             return self.move2.damage
 
 class Move:
-    def __init__(self, name, damage, cost):
+    def __init__(self, name, damage, cost, target, s_target, buff, a_buff, d_buff):
         self.name = name
         self.damage = damage
         self.cost = cost
-    # TODO implement target
+        self.target = target
+        # Could decrease parameters
+        self.s_target = s_target
+        self.buff = buff
+        self.a_buff = a_buff
+        self.d_buff = d_buff
     def __str__(self):
         return f"{self.name} does {self.damage} damage and costs {self.cost} mana."
+    
+    # Should be replaced per move
+    def use(self):
+        return {
+            "damage": self.damage, # Damage of the move, negative for healing
+            "cost": self.cost, # Mana cost of the move
+            "target": self.target, # Target of the move. 0 = self, 1 for opponent, 2 for ally, 3 for all
+            "2nd_target": self.s_target, # 2nd target of the move. 0 = self, 1 for opponent, 2 for ally, 3 for all
+            "buff": self.buff, # Buff of the move. 0 = attack, 1 for defense, 2 for speed, 3 for mana
+            "buff_amount": self.a_buff, # Amount of the buff. Negative for debuff
+            "buff_duration": self.d_buff # Duration of the buff
+        }
 
 def speed_check(player1, player2, enemy):
     #TODO: make sure this works
@@ -150,10 +166,10 @@ def battle(player1, player2, enemy):
                     attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
                                                             text=f'CRY',
                                                             manager=manager)
-                    a1BB = BetterButton(attack1, None, attack3, None, attack2, lambda x: char.attack(enemy, "block"))
-                    a2BB = BetterButton(attack2, None, attack4, a1BB, None, lambda x: char.attack(enemy, "slash"))
-                    a3BB = BetterButton(attack3, attack1, None, None, attack4, lambda x: char.attack(enemy, "explode"))
-                    a4BB = BetterButton(attack4, attack2, None, attack3, None, lambda x: char.attack(enemy, "cry"))
+                    a1BB = BetterButton(attack1, char.attack)
+                    a2BB = BetterButton(attack2, char.attack)
+                    a3BB = BetterButton(attack3, char.attack)
+                    a4BB = BetterButton(attack4, char.attack)
 
                     
                 else:
