@@ -114,8 +114,9 @@ def speed_check(player1, player2, enemy):
 
 
 def clear_elements():
+    global current_elements
     for element in current_elements:
-        if type(element) == gameplay.BetterButton:
+        if type(element) == BetterButton:
             element.button.kill()
         else:
             element.kill()
@@ -127,6 +128,7 @@ def battle(player1, player2, enemy):
     order = speed_check(player1, player2, enemy)
     #TODO: could clean up code
     for char in order:
+        clear_elements()
         if char.is_alive():
             if isinstance(char, Player):
                 if(char.num == 1):
@@ -148,6 +150,12 @@ def battle(player1, player2, enemy):
                     attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
                                                             text=f'CRY',
                                                             manager=manager)
+                    a1BB = BetterButton(attack1, None, attack3, None, attack2, lambda x: char.attack(enemy, "block"))
+                    a2BB = BetterButton(attack2, None, attack4, a1BB, None, lambda x: char.attack(enemy, "slash"))
+                    a3BB = BetterButton(attack3, attack1, None, None, attack4, lambda x: char.attack(enemy, "explode"))
+                    a4BB = BetterButton(attack4, attack2, None, attack3, None, lambda x: char.attack(enemy, "cry"))
+
+                    
                 else:
                     # Draw health bar
                     pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
@@ -184,12 +192,12 @@ def choose_enemy():
 # A class to make buttons easier to work with
 # Will include boundries and a function to call when pressed
 class BetterButton:
-    def __init__(self, button, above, below, left, right, function):
+    def __init__(self, button, function):
         self.button = button
-        self.above = above
-        self.below = below
-        self.left = left
-        self.right = right
+        self.above = None
+        self.below = None
+        self.left = None
+        self.right = None
         self.function = function
     def get_above(self):
         return self.above

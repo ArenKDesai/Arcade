@@ -80,12 +80,12 @@ def character_selection():
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
                                             text='C6',
                                             manager=manager)
-    c1_button = BetterButton(character1, None, None, None, None, second_character_selection)
-    c2_button = BetterButton(character2, None, None, None, None, second_character_selection)
-    c3_button = BetterButton(character3, None, None, None, None, second_character_selection)
-    c4_button = BetterButton(character4, None, None, None, None, second_character_selection)
-    c5_button = BetterButton(character5, None, None, None, None, second_character_selection)
-    c6_button = BetterButton(character6, None, None, None, None, second_character_selection)
+    c1_button = BetterButton(character1, second_character_selection)
+    c2_button = BetterButton(character2, second_character_selection)
+    c3_button = BetterButton(character3, second_character_selection)
+    c4_button = BetterButton(character4, second_character_selection)
+    c5_button = BetterButton(character5, second_character_selection)
+    c6_button = BetterButton(character6, second_character_selection)
     # Setting the boundries for the buttons
     c1_button.add_right(c2_button)
     c1_button.add_below(c4_button)
@@ -160,12 +160,12 @@ def second_character_selection(char):
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
                                             text='C6',
                                             manager=manager)
-    c1_button = BetterButton(character1, None, None, None, None, select_item)
-    c2_button = BetterButton(character2, None, None, None, None, select_item)
-    c3_button = BetterButton(character3, None, None, None, None, select_item)
-    c4_button = BetterButton(character4, None, None, None, None, select_item)
-    c5_button = BetterButton(character5, None, None, None, None, select_item)
-    c6_button = BetterButton(character6, None, None, None, None, select_item)
+    c1_button = BetterButton(character1, select_item)
+    c2_button = BetterButton(character2, select_item)
+    c3_button = BetterButton(character3, select_item)
+    c4_button = BetterButton(character4, select_item)
+    c5_button = BetterButton(character5, select_item)
+    c6_button = BetterButton(character6, select_item)
     # Setting the boundries for the buttons
     c1_button.add_right(c2_button)
     c1_button.add_below(c4_button)
@@ -268,11 +268,11 @@ if __name__ == "__main__":
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
                                             text='START',
                                             manager=manager)
-    start_bb = BetterButton(start_button, None, None, None, None, run_start_button)
+    start_bb = BetterButton(start_button, run_start_button)
     exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 670), (200, 100)),
                                             text='EXIT',
                                             manager=manager)
-    exit_bb = BetterButton(exit_button, None, None, None, None, exit_game)
+    exit_bb = BetterButton(exit_button, exit_game)
     start_bb.add_below(exit_bb)
     exit_bb.add_above(start_bb)
     selected_button = start_bb
