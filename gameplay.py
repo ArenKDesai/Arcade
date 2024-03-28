@@ -4,9 +4,10 @@ import pygame_gui
 import sound_player
 
 class Character:
-    def __init__(self, name, hp, attack, defense, speed, mana):
+    def __init__(self, name, totalHP, currentHP, attack, defense, speed, mana):
         self.name = name
-        self.hp = hp
+        self.totalHP = totalHP
+        self.currentHP = currentHP
         self.attack = attack
         self.defense = defense
         self.speed = speed
@@ -16,34 +17,45 @@ class Character:
         return f"{self.name} has {self.hp} HP, {self.attack} attack, {self.defense} defense, and {self.speed} speed."
 
     def take_damage(self, damage):
-        self.hp -= (damage - self.defense)
+        self.currentHP -= (damage - self.defense)
 
     def is_alive(self):
         return self.hp > 0
 
     def heal(self, amount):
-        self.hp += amount
+        self.currentHP += amount
         print(f"{self.name} heals for 10 HP.")
 
     # Will be used for both using and gaining mana
     def change_mana(self, amount):
         self.mana += amount
 
+    def reset_hp(self):
+        self.currentHP = self.totalHP
+
+    # TODO fix mana
+    def reset_mana(self):
+        pass
+
+    def get_hp_percent(self):
+        return self.currentHP / self.totalHP
+
 class Player(Character):
-    def __init__(self, name, hp, attack, defense, speed, mana, num):
-        super().__init__(name, hp, attack, defense, speed, mana)
+    def __init__(self, name, totalHP, currentHP, attack, defense, speed, mana, num):
+        super().__init__(name, totalHP, currentHP, attack, defense, speed, mana)
         self.num = num
 
 # Enemies have two attacks, one basic, one special. The speical takes mana and happens less frequently.
 # The target attribute will determine which character the enemy will attack.
 class Enemy(Character):
-    def __init__(self, name, hp, attack, defense, speed, mana, target, move1, move2):
-        super().__init__(name, hp, attack, defense, speed, mana)
+    def __init__(self, name, totalHP, currentHP, attack, defense, speed, mana, target, move1, move2):
+        super().__init__(name, totalHP, currentHP, attack, defense, speed, mana)
         self.target = target
         self.move1 = move1
         self.move2 = move2
     # Enemy will attack based on what stat it targets
     # TODO make this less repetitive
+    # TODO could also introduce attack patterns specifc to enemies
     def attack(self, player1, player2):
         decision = random.random()
         p1 = player1
@@ -52,7 +64,7 @@ class Enemy(Character):
             p2 = player1
             p1 = player2
         if self.target == "hp":
-            if p1.hp > p2.hp:
+            if p1.hp > p2.totalHP:
                 p1.take_damage(self.__use_move())
             else:
                 p2.take_damage(self.__use_move())
@@ -95,20 +107,74 @@ class Move:
         return f"{self.name} does {self.damage} damage and costs {self.cost} mana."
 
 def speed_check(player1, player2, enemy):
+    #TODO: make sure this works
     order = [player1, player2, enemy]
     order.sort(key=lambda x: x.speed, reverse=True) 
     return order
 
+
+def clear_elements():
+    for element in current_elements:
+        if type(element) == gameplay.BetterButton:
+            element.button.kill()
+        else:
+            element.kill()
+    current_elements.clear()
+
 def battle(player1, player2, enemy):
     global DISPLAYSURF
+    global manager
     order = speed_check(player1, player2, enemy)
+    #TODO: could clean up code
     for char in order:
         if char.is_alive():
             if isinstance(char, Player):
                 if(char.num == 1):
-                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), (0, 0, 100, 100))
-                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), (0, 0, 100, 100))
+                    # Draw health bar
+                    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
+                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
+                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * char.get_hp_percent(), 30))
+
+                    # Show attack options
+                    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
+                                                            text=f'BLOCK',
+                                                            manager=manager)
+                    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
+                                                            text=f'SLASH',
+                                                            manager=manager)
+                    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
+                                                            text=f'EXPLODE',
+                                                            manager=manager)
+                    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
+                                                            text=f'CRY',
+                                                            manager=manager)
+                else:
+                    # Draw health bar
+                    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
+                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 280, 360, 30))
+                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360 * char.get_hp_percent(), 30))
+
+                    # Show attack options
+                    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
+                                                            text=f'BLOCK',
+                                                            manager=manager)
+                    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
+                                                            text=f'SLASH',
+                                                            manager=manager)
+                    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
+                                                            text=f'EXPLODE',
+                                                            manager=manager)
+                    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
+                                                            text=f'CRY',
+                                                            manager=manager)
+
             else:
+                # Draw health bar
+                pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 355, 370, 40))
+                pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
+                pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360 * char.get_hp_percent(), 30))
+
+                # Enemy's turn            
                 enemy.attack(player1, player2)
 
 def choose_enemy():

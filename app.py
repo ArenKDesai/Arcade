@@ -11,7 +11,7 @@ import sys
 print(f"Importing pygame_gui at {time.time() - timer}")
 import pygame_gui
 print(f"Importing gameplay at {time.time() - timer}")
-import gameplay
+from gameplay import *
 print(f"Importing characters at {time.time() - timer}")
 from characters import all_characters, all_enemies, all_moves
 print(f"Importing sound_player at {time.time() - timer}")
@@ -54,7 +54,7 @@ def exit_game(_):
 
 def clear_elements():
     for element in current_elements:
-        if type(element) == gameplay.BetterButton:
+        if type(element) == BetterButton:
             element.button.kill()
         else:
             element.kill()
@@ -80,12 +80,12 @@ def character_selection():
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
                                             text='C6',
                                             manager=manager)
-    c1_button = gameplay.BetterButton(character1, None, None, None, None, second_character_selection)
-    c2_button = gameplay.BetterButton(character2, None, None, None, None, second_character_selection)
-    c3_button = gameplay.BetterButton(character3, None, None, None, None, second_character_selection)
-    c4_button = gameplay.BetterButton(character4, None, None, None, None, second_character_selection)
-    c5_button = gameplay.BetterButton(character5, None, None, None, None, second_character_selection)
-    c6_button = gameplay.BetterButton(character6, None, None, None, None, second_character_selection)
+    c1_button = BetterButton(character1, None, None, None, None, second_character_selection)
+    c2_button = BetterButton(character2, None, None, None, None, second_character_selection)
+    c3_button = BetterButton(character3, None, None, None, None, second_character_selection)
+    c4_button = BetterButton(character4, None, None, None, None, second_character_selection)
+    c5_button = BetterButton(character5, None, None, None, None, second_character_selection)
+    c6_button = BetterButton(character6, None, None, None, None, second_character_selection)
     # Setting the boundries for the buttons
     c1_button.add_right(c2_button)
     c1_button.add_below(c4_button)
@@ -160,12 +160,12 @@ def second_character_selection(char):
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
                                             text='C6',
                                             manager=manager)
-    c1_button = gameplay.BetterButton(character1, None, None, None, None, select_item)
-    c2_button = gameplay.BetterButton(character2, None, None, None, None, select_item)
-    c3_button = gameplay.BetterButton(character3, None, None, None, None, select_item)
-    c4_button = gameplay.BetterButton(character4, None, None, None, None, select_item)
-    c5_button = gameplay.BetterButton(character5, None, None, None, None, select_item)
-    c6_button = gameplay.BetterButton(character6, None, None, None, None, select_item)
+    c1_button = BetterButton(character1, None, None, None, None, select_item)
+    c2_button = BetterButton(character2, None, None, None, None, select_item)
+    c3_button = BetterButton(character3, None, None, None, None, select_item)
+    c4_button = BetterButton(character4, None, None, None, None, select_item)
+    c5_button = BetterButton(character5, None, None, None, None, select_item)
+    c6_button = BetterButton(character6, None, None, None, None, select_item)
     # Setting the boundries for the buttons
     c1_button.add_right(c2_button)
     c1_button.add_below(c4_button)
@@ -250,20 +250,6 @@ def start_battle():
                                             image_surface=pygame.image.load(f'artwork/{player2.name}.png'),
                                             manager=manager)
     
-    # TODO: fill with actual attacks
-    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
-                                            text=f'BLOCK',
-                                            manager=manager)
-    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
-                                            text=f'SLASH',
-                                            manager=manager)
-    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
-                                            text=f'EXPLODE',
-                                            manager=manager)
-    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
-                                            text=f'CRY',
-                                            manager=manager)
-    
     pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
     pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
     pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360, 30))
@@ -282,11 +268,11 @@ if __name__ == "__main__":
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
                                             text='START',
                                             manager=manager)
-    start_bb = gameplay.BetterButton(start_button, None, None, None, None, run_start_button)
+    start_bb = BetterButton(start_button, None, None, None, None, run_start_button)
     exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 670), (200, 100)),
                                             text='EXIT',
                                             manager=manager)
-    exit_bb = gameplay.BetterButton(exit_button, None, None, None, None, exit_game)
+    exit_bb = BetterButton(exit_button, None, None, None, None, exit_game)
     start_bb.add_below(exit_bb)
     exit_bb.add_above(start_bb)
     selected_button = start_bb
@@ -300,7 +286,7 @@ if __name__ == "__main__":
         if joystick:
             # TODO: Fix controller input
             # sending controller input to controller_input
-            gameplay.controller_input(joystick.get_axis(0), joystick.get_axis(1), 
+            controller_input(joystick.get_axis(0), joystick.get_axis(1), 
                                       selected_button, joystick.get_button(0), generic_input)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -318,7 +304,7 @@ if __name__ == "__main__":
                         break
             manager.process_events(event)
         if(battling):
-            gameplay.battle(player1, player2, enemy, item)
+            battle(player1, player2, enemy, item)
         # Reset the screen
         manager.update(time_delta)
         manager.draw_ui(DISPLAYSURF)
