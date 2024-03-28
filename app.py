@@ -248,19 +248,20 @@ def start_battle():
     player2_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((540, 550), (200, 200)),
                                             image_surface=pygame.image.load(f'artwork/{player2.name}.png'),
                                             manager=manager)
-    
-    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
-    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
-    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360, 30))
+    draw_health(player1, player2, enemy)
 
+def draw_health(player1, player2, enemy):
     pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
     pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 280, 360, 30))
-    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360, 30))
+    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360 * player1.get_hp_percent(), 30))
 
     pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 355, 370, 40))
     pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
-    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360, 30))
+    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360 * player2.get_hp_percent(), 30))
 
+    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
+    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
+    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * enemy.get_hp_percent(), 30))
 
         
 if __name__ == "__main__":
@@ -325,8 +326,10 @@ if __name__ == "__main__":
                 if char.buffs[buff] == 0:
                     buff.undo()
                     char.buffs.pop(buff)
+            draw_health(player1, player2, enemy)
             if char.is_alive():
                 print(f'{char.name}\'s turn!')
+                print(char.get_hp_percent())
                 if not char.is_enemy():
                     usr_in = False
                     char.move1.change_target(enemy)
@@ -334,11 +337,6 @@ if __name__ == "__main__":
                     char.move3.change_target(enemy)
                     char.move4.change_target(enemy)
                     if(char == player1):
-                        # Draw health bar
-                        pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
-                        pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 280, 360, 30))
-                        pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360 * char.get_hp_percent(), 30))
-
                         # Show attack options
                         attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
                                                                 text=f'{char.move1.name.upper()}',
@@ -374,12 +372,6 @@ if __name__ == "__main__":
                         current_elements.append(a4BB)
 
                     else:
-                        # Draw health bar
-                        pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 355, 370, 40))
-                        pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
-                        pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360 * char.get_hp_percent(), 30))
-
-
                         # Show attack options
                         attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
                                                                 text=f'{char.move1.name.upper()}',
@@ -415,11 +407,6 @@ if __name__ == "__main__":
                         current_elements.append(a4BB)
                         
                 else:
-                    # Draw health bar
-                    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
-                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
-                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * char.get_hp_percent(), 30))
-
                     # Enemy's turn            
                     enemy.aggro(player1, player2)
         # Reset the screen

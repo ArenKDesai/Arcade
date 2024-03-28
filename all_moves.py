@@ -52,8 +52,6 @@ class Block(Move):
         print("Using block")
         sound_player.block_sound()
         self.user.add_buff("defense", 999999)
-        global usr_in
-        usr_in = True
         print(f'{self.user.name} blocks!')
     
     def undo(self):
@@ -67,6 +65,4 @@ class Stomp(Move):
         print("Using stomp")
         sound_player.stomp_sound()
         self.target.take_damage(8 * (self.user.attack / 10))
-        global usr_in
-        usr_in = True
         print(f'{self.user.name} stomped {self.target.name} for {8 * (self.user.attack / 10)} damage!')
