@@ -4,7 +4,7 @@
 - Design characters
 - Design enemies
 - Design backgrounds
-- Find music
+- Find
 - Build combat
 - Add sounds
 - Make moves

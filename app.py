@@ -16,8 +16,8 @@ print(f"Importing characters at {time.time() - timer}")
 from characters import *
 print(f"Importing sound_player at {time.time() - timer}")
 import sound_player
-print(f'Importing global variables at {time.time() - timer}')
 print(f'Finished imports at {time.time() - timer}')
+from glob_var import usr_in
 
 # Global variables
 DISPLAYSURF = pygame.display.set_mode((1440, 900))
@@ -30,6 +30,7 @@ BROWN = pygame.Color(80, 60, 60)
 DBROWN = pygame.Color(60, 54, 51)
 current_elements = []
 running = True
+
 
 # Handling controller input
 joystick = None
@@ -46,6 +47,8 @@ def exit_game(_):
     global running
     running = False
     sound_player.button_sound()
+    global music_player
+    music_player.stop()
     pygame.quit()
     sys.exit()
 
@@ -276,6 +279,9 @@ if __name__ == "__main__":
     current_elements.append(exit_bb)
     DISPLAYSURF.fill(DBROWN)
     battle_ptr = 0
+    global music_player
+    music_player = sound_player.MusicPlayer('honor-and-sword-main-11222.mp3')
+    music_player.play()
     
     # Main Game loop
     while(running):
