@@ -16,6 +16,7 @@ print(f"Importing characters at {time.time() - timer}")
 from characters import *
 print(f"Importing sound_player at {time.time() - timer}")
 import sound_player
+print(f'Importing global variables at {time.time() - timer}')
 print(f'Finished imports at {time.time() - timer}')
 
 # Global variables
@@ -35,10 +36,6 @@ joystick = None
 # TODO: Probably don't need this many global variables
 selected_button = None
 
-# Current player and enemy
-player1 = None
-player2 = None
-enemy = None
 battling = False
 item = None
 
@@ -64,7 +61,7 @@ def character_selection():
                                             text='PHILOSOPHER',
                                             manager=manager)
     character4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 725), (150, 50)),
-                                            text='PRIEST',
+                                            text='HERETIC',
                                             manager=manager)
     character5 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((645, 725), (150, 50)),
                                             text='WITCH',
@@ -146,7 +143,7 @@ def second_character_selection(char):
                                             text='PHILOSOPHER',
                                             manager=manager)
     character4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 725), (150, 50)),
-                                            text='PRIEST',
+                                            text='HERETIC',
                                             manager=manager)
     character5 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((645, 725), (150, 50)),
                                             text='WITCH',
@@ -214,6 +211,7 @@ def second_character_selection(char):
 def run_start_button(_):
     global current_elements
     clear_elements(current_elements)
+    DISPLAYSURF.fill(DBROWN)
     character_selection()
     return
 
@@ -260,103 +258,6 @@ def start_battle():
     pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360, 30))
 
 
-def battle(player1, player2, enemy, current_elements, manager, DISPLAYSURF):
-    global user_input
-    order = speed_check(player1, player2, enemy)
-    #TODO: could clean up code
-    for char in order:
-        clear_elements(current_elements)
-        char.change_mana(2)
-        for buff in char.buffs:
-            char.buffs[buff] -= 1
-            if char.buffs[buff] == 0:
-                buff.undo(char)
-                char.buffs.pop(buff)
-        if char.is_alive():
-            print(f'{char.name}\'s turn!')
-            if not char.is_enemy():
-                if(char == player1):
-                    # Draw health bar
-                    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
-                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 280, 360, 30))
-                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360 * char.get_hp_percent(), 30))
-
-                    # Show attack options
-                    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
-                                                            text=f'BLOCK',
-                                                            manager=manager)
-                    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
-                                                            text=f'SLASH',
-                                                            manager=manager)
-                    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
-                                                            text=f'EXPLODE',
-                                                            manager=manager)
-                    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
-                                                            text=f'CRY',
-                                                            manager=manager)
-                    a1BB = BetterButton(attack1, char.attack)
-                    a2BB = BetterButton(attack2, char.attack)
-                    a3BB = BetterButton(attack3, char.attack)
-                    a4BB = BetterButton(attack4, char.attack)
-                    a1BB.add_below(a3BB)
-                    a1BB.add_right(a2BB)
-                    a2BB.add_below(a4BB)
-                    a2BB.add_left(a1BB)
-                    a3BB.add_above(a1BB)
-                    a3BB.add_right(a4BB)
-                    a4BB.add_above(a2BB)
-                    a4BB.add_left(a3BB)
-                    current_elements.append(a1BB)
-                    current_elements.append(a2BB)
-                    current_elements.append(a3BB)
-                    current_elements.append(a4BB)
-
-                else:
-                    # Draw health bar
-                    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 355, 370, 40))
-                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
-                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360 * char.get_hp_percent(), 30))
-
-
-                    # Show attack options
-                    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
-                                                            text=f'BLOCK',
-                                                            manager=manager)
-                    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
-                                                            text=f'SLASH',
-                                                            manager=manager)
-                    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
-                                                            text=f'EXPLODE',
-                                                            manager=manager)
-                    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
-                                                            text=f'CRY',
-                                                            manager=manager)
-                    a1BB = BetterButton(attack1, char.attack)
-                    a2BB = BetterButton(attack2, char.attack)
-                    a3BB = BetterButton(attack3, char.attack)
-                    a4BB = BetterButton(attack4, char.attack)
-                    a1BB.add_below(a3BB)
-                    a1BB.add_right(a2BB)
-                    a2BB.add_below(a4BB)
-                    a2BB.add_left(a1BB)
-                    a3BB.add_above(a1BB)
-                    a3BB.add_right(a4BB)
-                    a4BB.add_above(a2BB)
-                    a4BB.add_left(a3BB)
-                    current_elements.append(a1BB)
-                    current_elements.append(a2BB)
-                    current_elements.append(a3BB)
-                    current_elements.append(a4BB)
-                    
-            else:
-                # Draw health bar
-                pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
-                pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
-                pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * char.get_hp_percent(), 30))
-
-
-                # Enemy's turn            
-                enemy.aggro(player1, player2)
         
 if __name__ == "__main__":
     print(f'Starting game at {time.time() - timer}')
@@ -375,7 +276,7 @@ if __name__ == "__main__":
     current_elements.append(exit_bb)
     DISPLAYSURF.fill(DBROWN)
     battle_ptr = 0
-    usr_in = True
+    
     # Main Game loop
     while(running):
         generic_input = None
@@ -393,9 +294,9 @@ if __name__ == "__main__":
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
                 for element in current_elements:
                     if event.ui_element == element.button:
-                        DISPLAYSURF.fill(DBROWN)
                         # Button names will be the function inputs
                         generic_input = element.button.text
+                        print(f'Button pressed: {generic_input}')
                         element.press(generic_input)
                         sound_player.button_sound()
                         break
@@ -412,7 +313,7 @@ if __name__ == "__main__":
             for buff in char.buffs:
                 char.buffs[buff] -= 1
                 if char.buffs[buff] == 0:
-                    buff.undo(char)
+                    buff.undo()
                     char.buffs.pop(buff)
             if char.is_alive():
                 print(f'{char.name}\'s turn!')
@@ -474,10 +375,10 @@ if __name__ == "__main__":
                         attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
                                                                 text=f'{char.move4.name.upper()}',
                                                                 manager=manager)
-                        a1BB = BetterButton(attack1, char.move1.use(enemy, usr_in))
-                        a2BB = BetterButton(attack2, char.move2.use(enemy, usr_in))
-                        a3BB = BetterButton(attack3, char.move3.use(enemy, usr_in))
-                        a4BB = BetterButton(attack4, char.move4.use(enemy, usr_in))
+                        a1BB = BetterButton(attack1, char.move1.use)
+                        a2BB = BetterButton(attack2, char.move2.use)
+                        a3BB = BetterButton(attack3, char.move3.use)
+                        a4BB = BetterButton(attack4, char.move4.use)
                         a1BB.add_below(a3BB)
                         a1BB.add_right(a2BB)
                         a2BB.add_below(a4BB)
@@ -496,7 +397,6 @@ if __name__ == "__main__":
                     pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
                     pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
                     pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * char.get_hp_percent(), 30))
-
 
                     # Enemy's turn            
                     enemy.aggro(player1, player2)

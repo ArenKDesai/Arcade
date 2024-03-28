@@ -3,6 +3,7 @@ import pygame
 import pygame_gui
 import sound_player
 from all_moves import *
+from glob_var import *
 
 class Character:
     def __init__(self, name, totalHP, attack, defense, speed, maxMana):
@@ -48,10 +49,10 @@ class Character:
 class Player(Character):
     def __init__(self, name, totalHP, attack, defense, speed, mana):
         super().__init__(name, totalHP, attack, defense, speed, mana)
-        self.move1 = Slash(name, user)
-        self.move2 = Spit(name, user)
-        self.move3 = Block(name, user)
-        self.move4 = Stomp(name, user)
+        self.move1 = Slash(self, enemy)
+        self.move2 = Spit(self, enemy)
+        self.move3 = Block(self, enemy)
+        self.move4 = Stomp(self, enemy)
 
     def is_enemy(self):
         return False
@@ -61,11 +62,12 @@ class Player(Character):
 # Enemies have two attacks, one basic, one special. The speical takes mana and happens less frequently.
 # The target attribute will determine which character the enemy will attack.
 class Enemy(Character):
-    def __init__(self, name, totalHP, attack, defense, speed, mana, target, move1, move2):
+    def __init__(self, name, totalHP, attack, defense, speed, mana, target):
         super().__init__(name, totalHP, attack, defense, speed, mana)
         self.target = target
-        self.move1 = move1
-        self.move2 = move2
+        self.player_target = None
+        self.move1 = Slash(self, player1)
+        self.move2 = Spit(self, player1)
     # Enemy will attack based on what stat it targets
     # TODO make this less repetitive
     # TODO could also introduce attack patterns specifc to enemies
@@ -78,37 +80,38 @@ class Enemy(Character):
             p1 = player2
         if self.target == "hp":
             if p1.totalHP > p2.totalHP:
-                p1.take_damage(self.__use_move())
+                self.__use_move(p1)
             else:
-                p2.take_damage(self.__use_move())
+                self.__use_move(p2)
         elif self.target == "attack":
             if p1.attack > p2.attack:
-                p1.take_damage(self.__use_move())
+                self.__use_move(p1)
             else:
-                p2.take_damage(self.__use_move())
+                self.__use_move()
         elif self.target == "defense":
             if p1.defense > p2.defense:
-                p1.take_damage(self.__use_move())
+                self.__use_move(p2)
             else:
-                p2.take_damage(self.__use_move())
+                self.__use_move()
         elif self.target == "speed":
             if p1.speed > p2.speed:
-                p1.take_damage(self.__use_move())
+                self.__use_move(p1)
             else:
-                p2.take_damage(self.__use_move())
+                self.__use_move(p2)
         elif self.target == "mana":
             if p1.totalMana > p2.totalMana:
-                p1.take_damage(self.__use_move())
+                self.__use_move(p1)
             else:
-                p2.take_damage(self.__use_move())
+                self.__use_move(p2)
     # Will be used to determine which move the enemy uses
-    def __use_move(self):
+    def __use_move(self, player_target):
         # TODO may have to update for more interesting moves
-        if random.random > 0.65 or self.mana < self.move2.cost:
-            return self.move1.damage
+        if random.random() < 0.65 or self.mana < self.move2.cost:
+            self.move1.change_target(player_target)
+            self.move1.use()
         else:
-            self.change_mana(self.move2.cost)
-            return self.move2.damage
+            self.move2.change_target(player_target)
+            self.move2.use()
         
     def is_enemy(self):
         return True

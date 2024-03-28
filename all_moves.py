@@ -5,48 +5,60 @@ class Move:
         self.target = target # Character being targeted
 
     # Will be overridden by the subclasses
-    def use(self):
+    # This will be passed the generic input, but we don't need it
+    def use(self, _):
         pass
+
+    def change_target(self, target):
+        self.target = target
+
+    def change_user(self, user):
+        self.user = user
 
 class Slash(Move):
     def __init__(self, user, target):
         super().__init__("slash", user, target)
 
-    def use(self):
+    def use(self, _):
         self.target.take_damage(10 * (self.user.attack / 10))
+        global usr_in
         usr_in = True
         return f'{self.user.name} slashed {self.target.name} for {10 * (self.user.attack / 10)} damage!'
     
 class Spit(Move):
-    def __init__(self, userName):
-        super().__init__("spit", userName)
+    def __init__(self, user, target):
+        super().__init__("spit", user, target)
 
-    def use(self, user, target, usr_in):
-        target.take_damage(15 * (user.attack / 10))
-        user.change_mana(-5)
+    def use(self, _):
+        self.target.take_damage(15 * (self.user.attack / 10))
+        self.user.change_mana(-5)
+        global usr_in
         usr_in = True
         return f'''
-        {user.name} spat at {target.name} for {15 * (user.attack / 10)} damage!
-        {user.name} lost 5 mana!
+        {self.user.name} spat at {self.target.name} for {15 * (self.user.attack / 10)} damage!
+        {self.user.name} lost 5 mana!
         '''
     
 class Block(Move):
-    def __init__(self, userName):
-        super().__init__("block", userName)
+    def __init__(self, user, target):
+        super().__init__("block", user, target)
 
-    def use(self, user, target, usr_in):
-        user.change_buff("defense", 999999)
+    def use(self, _):
+        print('test')
+        self.user.add_buff("defense", 999999)
+        global usr_in
         usr_in = True
-        return f'{user.name} blocked!'
+        return f'{self.user.name} blocked!'
     
-    def undo(self, user):
-        user.change_buff("defense", -999999)
+    def undo(self):
+        self.user.add_buff("defense", -999999)
 
 class Stomp(Move):
-    def __init__(self, userName):
-        super().__init__("stomp", userName)
+    def __init__(self, user, target):
+        super().__init__("stomp", user, target)
     
-    def use(self, user, target, usr_in):
-        target.take_damage(8 * (user.attack / 10))
+    def use(self, _):
+        self.target.take_damage(8 * (self.user.attack / 10))
+        global usr_in
         usr_in = True
-        return f'{user.name} stomped {target.name} for {8 * (user.attack / 10)} damage!'
+        return f'{self.user.name} stomped {self.target.name} for {8 * (self.user.attack / 10)} damage!'

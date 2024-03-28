@@ -3,7 +3,7 @@ from all_moves import *
 
 all_enemies = {
     # name, totalHP, currentHP attack, defense, speed, mana, target, move1, move2
-    "goblin_enemy": Enemy("GOBLIN", 50, 10, 5, 5, 10, "hp", Slash("GOBLIN"), Spit("GOBLIN")),
+    "goblin_enemy": Enemy("GOBLIN", 50, 10, 5, 5, 10, "hp"),
 }
 
 all_characters = {
