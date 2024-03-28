@@ -132,6 +132,7 @@ def character_selection():
 def second_character_selection(char):
     global current_elements
     clear_elements(current_elements)
+    global enemy
     global player1
     player1 = all_characters[char.lower()]
     print(f'Player has chosen {player1.name}')
@@ -305,6 +306,9 @@ if __name__ == "__main__":
                         print(f'Button pressed: {generic_input}')
                         element.press(generic_input)
                         sound_player.button_sound()
+                        if(element.is_attack):
+                            usr_in = True
+                            clear_elements(current_elements)
                         break
             manager.process_events(event)
         if(battling and usr_in):
@@ -325,6 +329,10 @@ if __name__ == "__main__":
                 print(f'{char.name}\'s turn!')
                 if not char.is_enemy():
                     usr_in = False
+                    char.move1.change_target(enemy)
+                    char.move2.change_target(enemy)
+                    char.move3.change_target(enemy)
+                    char.move4.change_target(enemy)
                     if(char == player1):
                         # Draw health bar
                         pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
@@ -356,6 +364,10 @@ if __name__ == "__main__":
                         a3BB.add_right(a4BB)
                         a4BB.add_above(a2BB)
                         a4BB.add_left(a3BB)
+                        a1BB.set_attack()
+                        a2BB.set_attack()
+                        a3BB.set_attack()
+                        a4BB.set_attack()
                         current_elements.append(a1BB)
                         current_elements.append(a2BB)
                         current_elements.append(a3BB)
@@ -393,6 +405,10 @@ if __name__ == "__main__":
                         a3BB.add_right(a4BB)
                         a4BB.add_above(a2BB)
                         a4BB.add_left(a3BB)
+                        a1BB.set_attack()
+                        a2BB.set_attack()
+                        a3BB.set_attack()
+                        a4BB.set_attack()
                         current_elements.append(a1BB)
                         current_elements.append(a2BB)
                         current_elements.append(a3BB)

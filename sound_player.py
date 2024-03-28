@@ -9,7 +9,7 @@ def ui_sound():
     threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','191412-Modular_UI_-Solo_Beeps-050.wav'), True)).start()
 
 def spit_sound():
-    threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','191412-Modular_UI_-Solo_Beeps-050.wav'), True)).start()
+    threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','107126-Quick_spit-AOS02329.wav'), True)).start()
 
 def block_sound():
     threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','97665-sword_hit_3.wav'), True)).start()

@@ -21,7 +21,8 @@ class Character:
         return f"{self.name} has {self.hp} HP, {self.attack} attack, {self.defense} defense, and {self.speed} speed."
 
     def take_damage(self, damage):
-        self.currentHP -= (damage - self.defense)
+        if self.defense < damage:
+            self.currentHP -= (damage - self.defense)
 
     def is_alive(self):
         return self.currentHP > 0
@@ -47,7 +48,7 @@ class Character:
         self.buffs[buff] = buffDuration
 
 class Player(Character):
-    def __init__(self, name, totalHP, attack, defense, speed, mana):
+    def __init__(self, name, totalHP, attack, defense, speed, mana, enemy):
         super().__init__(name, totalHP, attack, defense, speed, mana)
         self.move1 = Slash(self, enemy)
         self.move2 = Spit(self, enemy)
@@ -106,12 +107,12 @@ class Enemy(Character):
     # Will be used to determine which move the enemy uses
     def __use_move(self, player_target):
         # TODO may have to update for more interesting moves
-        if random.random() < 0.65 or self.mana < self.move2.cost:
+        if random.random() < 0.65 or self.currentMana < self.move2.cost:
             self.move1.change_target(player_target)
-            self.move1.use()
+            self.move1.use(None)
         else:
             self.move2.change_target(player_target)
-            self.move2.use()
+            self.move2.use(None)
         
     def is_enemy(self):
         return True
@@ -145,6 +146,7 @@ class BetterButton:
         self.left = None
         self.right = None
         self.function = function
+        self.is_attack = False
     def get_above(self):
         return self.above
     def get_below(self):
@@ -166,6 +168,10 @@ class BetterButton:
     # passed generic input
     def press(self, gen_in):
         self.function(gen_in)
+    def set_attack(self):
+        self.is_attack = True
+    def get_is_attack(self):
+        return self.is_attack
 
 
 # Input: controller input, could be movement or pressing

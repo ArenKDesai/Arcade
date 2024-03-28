@@ -12,4 +12,5 @@
 - Make database to hold player data
 - Make icon
 - Make start screen
-- Rework global variables into the GLOB_VAR file
+- CLean up global variables
+- Add splash screen for events
