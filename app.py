@@ -13,7 +13,7 @@ import pygame_gui
 print(f"Importing gameplay at {time.time() - timer}")
 from gameplay import *
 print(f"Importing characters at {time.time() - timer}")
-from characters import all_characters, all_enemies, all_moves
+from characters import *
 print(f"Importing sound_player at {time.time() - timer}")
 import sound_player
 print(f'Finished imports at {time.time() - timer}')
@@ -52,33 +52,25 @@ def exit_game(_):
     pygame.quit()
     sys.exit()
 
-def clear_elements():
-    for element in current_elements:
-        if type(element) == BetterButton:
-            element.button.kill()
-        else:
-            element.kill()
-    current_elements.clear()
-
 def character_selection():
     # Character Selection
     character1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 325), (150, 50)),
-                                            text='C1',
+                                            text='GOBLIN',
                                             manager=manager)
     character2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((645, 325), (150, 50)),
-                                            text='C2',
+                                            text='HORSE',
                                             manager=manager)
     character3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 325), (150, 50)),
-                                            text='C3',
+                                            text='PHILOSOPHER',
                                             manager=manager)
     character4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 725), (150, 50)),
-                                            text='C4',
+                                            text='PRIEST',
                                             manager=manager)
     character5 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((645, 725), (150, 50)),
-                                            text='C5',
+                                            text='WITCH',
                                             manager=manager)
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
-                                            text='C6',
+                                            text='GAMBLER',
                                             manager=manager)
     c1_button = BetterButton(character1, second_character_selection)
     c2_button = BetterButton(character2, second_character_selection)
@@ -112,22 +104,22 @@ def character_selection():
     if joystick:
         c1_button.get_button().select()
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 125), (150, 150)),
-                                              image_surface=pygame.image.load('artwork/c1_icon.png'),
+                                              image_surface=pygame.image.load('artwork/goblin_icon.png'),
                                               manager=manager)
     c2_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((645, 125), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c2_icon.png'),
+                                            image_surface=pygame.image.load('artwork/horse_icon.png'),
                                             manager=manager)
     c3_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((1005, 125), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c3_icon.png'),
+                                            image_surface=pygame.image.load('artwork/philosopher_icon.png'),
                                             manager=manager)
     c4_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 525), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c4_icon.png'),
+                                            image_surface=pygame.image.load('artwork/heretic_icon.png'),
                                             manager=manager)
     c5_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((645, 525), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c5_icon.png'),
+                                            image_surface=pygame.image.load('artwork/witch_icon.png'),
                                             manager=manager)
     c6_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((1005, 525), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c6_icon.png'),
+                                            image_surface=pygame.image.load('artwork/gambler_icon.png'),
                                             manager=manager)
     current_elements.append(c1_icon)
     current_elements.append(c2_icon)
@@ -138,27 +130,29 @@ def character_selection():
     return
 
 def second_character_selection(char):
-    clear_elements()
+    global current_elements
+    clear_elements(current_elements)
     global player1
     player1 = all_characters[char.lower()]
+    print(f'Player has chosen {player1.name}')
     # Character Selection
     character1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 325), (150, 50)),
-                                            text='C1',
+                                            text='GOBLIN',
                                             manager=manager)
     character2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((645, 325), (150, 50)),
-                                            text='C2',
+                                            text='HORSE',
                                             manager=manager)
     character3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 325), (150, 50)),
-                                            text='C3',
+                                            text='PHILOSOPHER',
                                             manager=manager)
     character4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 725), (150, 50)),
-                                            text='C4',
+                                            text='PRIEST',
                                             manager=manager)
     character5 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((645, 725), (150, 50)),
-                                            text='C5',
+                                            text='WITCH',
                                             manager=manager)
     character6 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1005, 725), (150, 50)),
-                                            text='C6',
+                                            text='GAMBLER',
                                             manager=manager)
     c1_button = BetterButton(character1, select_item)
     c2_button = BetterButton(character2, select_item)
@@ -192,22 +186,22 @@ def second_character_selection(char):
     if joystick:
         c1_button.get_button().select()
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 125), (150, 150)),
-                                              image_surface=pygame.image.load('artwork/c1_icon.png'),
+                                              image_surface=pygame.image.load('artwork/goblin_icon.png'),
                                               manager=manager)
     c2_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((645, 125), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c2_icon.png'),
+                                            image_surface=pygame.image.load('artwork/horse_icon.png'),
                                             manager=manager)
     c3_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((1005, 125), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c3_icon.png'),
+                                            image_surface=pygame.image.load('artwork/philosopher_icon.png'),
                                             manager=manager)
     c4_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 525), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c4_icon.png'),
+                                            image_surface=pygame.image.load('artwork/heretic_icon.png'),
                                             manager=manager)
     c5_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((645, 525), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c5_icon.png'),
+                                            image_surface=pygame.image.load('artwork/witch_icon.png'),
                                             manager=manager)
     c6_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((1005, 525), (150, 150)),
-                                            image_surface=pygame.image.load('artwork/c6_icon.png'),
+                                            image_surface=pygame.image.load('artwork/gambler_icon.png'),
                                             manager=manager)
     current_elements.append(c1_icon)
     current_elements.append(c2_icon)
@@ -218,19 +212,22 @@ def second_character_selection(char):
     return
 
 def run_start_button(_):
-    clear_elements()
+    global current_elements
+    clear_elements(current_elements)
     character_selection()
     return
 
 def select_item(char):
+    global current_elements
     # TODO: might be able to have less global variables
-    clear_elements()
+    clear_elements(current_elements)
     global player2
     player2 = all_characters[char.lower()]
+    print(f'Player has chosen {player2.name}')
     # TODO: Item Selection
     item = None
     global enemy
-    enemy = all_enemies["goblin"]
+    enemy = all_enemies["goblin_enemy"]
     start_battle()
     return item
 
@@ -262,6 +259,104 @@ def start_battle():
     pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
     pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360, 30))
 
+
+def battle(player1, player2, enemy, current_elements, manager, DISPLAYSURF):
+    global user_input
+    order = speed_check(player1, player2, enemy)
+    #TODO: could clean up code
+    for char in order:
+        clear_elements(current_elements)
+        char.change_mana(2)
+        for buff in char.buffs:
+            char.buffs[buff] -= 1
+            if char.buffs[buff] == 0:
+                buff.undo(char)
+                char.buffs.pop(buff)
+        if char.is_alive():
+            print(f'{char.name}\'s turn!')
+            if not char.is_enemy():
+                if(char == player1):
+                    # Draw health bar
+                    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
+                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 280, 360, 30))
+                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360 * char.get_hp_percent(), 30))
+
+                    # Show attack options
+                    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
+                                                            text=f'BLOCK',
+                                                            manager=manager)
+                    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
+                                                            text=f'SLASH',
+                                                            manager=manager)
+                    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
+                                                            text=f'EXPLODE',
+                                                            manager=manager)
+                    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
+                                                            text=f'CRY',
+                                                            manager=manager)
+                    a1BB = BetterButton(attack1, char.attack)
+                    a2BB = BetterButton(attack2, char.attack)
+                    a3BB = BetterButton(attack3, char.attack)
+                    a4BB = BetterButton(attack4, char.attack)
+                    a1BB.add_below(a3BB)
+                    a1BB.add_right(a2BB)
+                    a2BB.add_below(a4BB)
+                    a2BB.add_left(a1BB)
+                    a3BB.add_above(a1BB)
+                    a3BB.add_right(a4BB)
+                    a4BB.add_above(a2BB)
+                    a4BB.add_left(a3BB)
+                    current_elements.append(a1BB)
+                    current_elements.append(a2BB)
+                    current_elements.append(a3BB)
+                    current_elements.append(a4BB)
+
+                else:
+                    # Draw health bar
+                    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 355, 370, 40))
+                    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
+                    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360 * char.get_hp_percent(), 30))
+
+
+                    # Show attack options
+                    attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
+                                                            text=f'BLOCK',
+                                                            manager=manager)
+                    attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
+                                                            text=f'SLASH',
+                                                            manager=manager)
+                    attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
+                                                            text=f'EXPLODE',
+                                                            manager=manager)
+                    attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
+                                                            text=f'CRY',
+                                                            manager=manager)
+                    a1BB = BetterButton(attack1, char.attack)
+                    a2BB = BetterButton(attack2, char.attack)
+                    a3BB = BetterButton(attack3, char.attack)
+                    a4BB = BetterButton(attack4, char.attack)
+                    a1BB.add_below(a3BB)
+                    a1BB.add_right(a2BB)
+                    a2BB.add_below(a4BB)
+                    a2BB.add_left(a1BB)
+                    a3BB.add_above(a1BB)
+                    a3BB.add_right(a4BB)
+                    a4BB.add_above(a2BB)
+                    a4BB.add_left(a3BB)
+                    current_elements.append(a1BB)
+                    current_elements.append(a2BB)
+                    current_elements.append(a3BB)
+                    current_elements.append(a4BB)
+                    
+            else:
+                # Draw health bar
+                pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
+                pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
+                pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * char.get_hp_percent(), 30))
+
+
+                # Enemy's turn            
+                enemy.aggro(player1, player2)
         
 if __name__ == "__main__":
     print(f'Starting game at {time.time() - timer}')
@@ -304,7 +399,101 @@ if __name__ == "__main__":
                         break
             manager.process_events(event)
         if(battling):
-            battle(player1, player2, enemy, item)
+            order = speed_check(player1, player2, enemy)
+            #TODO: could clean up code
+            for char in order:
+                clear_elements(current_elements)
+                char.change_mana(2)
+                for buff in char.buffs:
+                    char.buffs[buff] -= 1
+                    if char.buffs[buff] == 0:
+                        buff.undo(char)
+                        char.buffs.pop(buff)
+                if char.is_alive():
+                    print(f'{char.name}\'s turn!')
+                    if not char.is_enemy():
+                        if(char == player1):
+                            # Draw health bar
+                            pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
+                            pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 280, 360, 30))
+                            pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360 * char.get_hp_percent(), 30))
+
+                            # Show attack options
+                            attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
+                                                                    text=f'BLOCK',
+                                                                    manager=manager)
+                            attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
+                                                                    text=f'SLASH',
+                                                                    manager=manager)
+                            attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
+                                                                    text=f'EXPLODE',
+                                                                    manager=manager)
+                            attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
+                                                                    text=f'CRY',
+                                                                    manager=manager)
+                            a1BB = BetterButton(attack1, char.attack)
+                            a2BB = BetterButton(attack2, char.attack)
+                            a3BB = BetterButton(attack3, char.attack)
+                            a4BB = BetterButton(attack4, char.attack)
+                            a1BB.add_below(a3BB)
+                            a1BB.add_right(a2BB)
+                            a2BB.add_below(a4BB)
+                            a2BB.add_left(a1BB)
+                            a3BB.add_above(a1BB)
+                            a3BB.add_right(a4BB)
+                            a4BB.add_above(a2BB)
+                            a4BB.add_left(a3BB)
+                            current_elements.append(a1BB)
+                            current_elements.append(a2BB)
+                            current_elements.append(a3BB)
+                            current_elements.append(a4BB)
+
+                        else:
+                            # Draw health bar
+                            pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 355, 370, 40))
+                            pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
+                            pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360 * char.get_hp_percent(), 30))
+
+
+                            # Show attack options
+                            attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
+                                                                    text=f'BLOCK',
+                                                                    manager=manager)
+                            attack2 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 680), (200, 100)),
+                                                                    text=f'SLASH',
+                                                                    manager=manager)
+                            attack3 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 580), (200, 100)),
+                                                                    text=f'EXPLODE',
+                                                                    manager=manager)
+                            attack4 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((1150, 580), (200, 100)),
+                                                                    text=f'CRY',
+                                                                    manager=manager)
+                            a1BB = BetterButton(attack1, char.attack)
+                            a2BB = BetterButton(attack2, char.attack)
+                            a3BB = BetterButton(attack3, char.attack)
+                            a4BB = BetterButton(attack4, char.attack)
+                            a1BB.add_below(a3BB)
+                            a1BB.add_right(a2BB)
+                            a2BB.add_below(a4BB)
+                            a2BB.add_left(a1BB)
+                            a3BB.add_above(a1BB)
+                            a3BB.add_right(a4BB)
+                            a4BB.add_above(a2BB)
+                            a4BB.add_left(a3BB)
+                            current_elements.append(a1BB)
+                            current_elements.append(a2BB)
+                            current_elements.append(a3BB)
+                            current_elements.append(a4BB)
+                            
+                    else:
+                        # Draw health bar
+                        pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
+                        pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
+                        pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * char.get_hp_percent(), 30))
+
+
+                        # Enemy's turn            
+                        enemy.aggro(player1, player2)
         # Reset the screen
         manager.update(time_delta)
         manager.draw_ui(DISPLAYSURF)
