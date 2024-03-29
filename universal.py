@@ -40,3 +40,11 @@ def splash_message(content, screen, manager):
     screen.blit(text, (50, 50))
     pygame.display.flip()
     pygame.time.delay(1750)
+
+def check_battling():
+    global battling
+    return battling
+
+def check_usr_in():
+    global usr_in
+    return usr_in

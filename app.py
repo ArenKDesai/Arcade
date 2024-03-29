@@ -67,6 +67,8 @@ if __name__ == "__main__":
             manager.process_events(event)
 
         # Battle loop
+        battling = check_battling()
+        print(battling)
         if(battling and usr_in):
             # Sorts characters by speed
             order = speed_check(player1, player2, enemy)
