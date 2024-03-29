@@ -236,8 +236,13 @@ def select_item(char):
     start_battle()
     return item
 
-def walkup():
-    pass
+def walkup(background):
+    pygame.time.delay(500)
+    for i in range(10):
+        DISPLAYSURF.blit(background, (0, 0))
+        DISPLAYSURF.blit(pygame.image.load(f'artwork/transition{i+1}.png'), (0, 0))
+        pygame.display.flip()
+        pygame.time.delay(5)
 
 # Begin battle
 def start_battle():
@@ -245,21 +250,12 @@ def start_battle():
     global DISPLAYSURF
     battling = True
     DISPLAYSURF.blit(pygame.image.load('artwork/grass_background.png'), (0, 0))
+    pygame.display.flip()
+    walkup(pygame.image.load('artwork/grass_background.png'))
+    DISPLAYSURF.blit(pygame.image.load('artwork/grass.png'), (0, 0))
     enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 75), (450, 450)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
-    pygame.display.flip()
-    pygame.time.delay(200)
-    DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition1.png'), (0, 0))
-    pygame.display.flip()
-    pygame.time.delay(50)
-    DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition2.png'), (0, 0))
-    pygame.display.flip()
-    pygame.time.delay(50)
-    DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition3.png'), (0, 0))
-    pygame.display.flip()
-    pygame.time.delay(50)
-    DISPLAYSURF.blit(pygame.image.load('artwork/grass.png'), (0, 0))
     pygame.display.flip()
     player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((120, 450), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{player1.name}.png'),
