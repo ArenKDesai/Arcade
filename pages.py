@@ -32,7 +32,10 @@ def start_battle():
     global current_elements
     global DISPLAYSURF
     global manager
-    
+    global player1
+    global player2
+    global enemy
+
     battling = True
     DISPLAYSURF.blit(pygame.image.load('artwork/grass_background.png'), (0, 0))
     pygame.display.flip()
@@ -59,20 +62,23 @@ def start_battle():
 
 def select_item(char):
     global current_elements
-    # TODO: might be able to have less global variables
-    clear_elements(current_elements)
     global player2
+    global enemy
+
+    clear_elements(current_elements)
     player2 = all_characters[char.lower()]
     print(f'Player has chosen {player2.name}')
     # TODO: Item Selection
     item = None
-    global enemy
+    # TODO: Enemy selection
     enemy = all_enemies["drunk"]
     start_battle()
     return item
 
 def run_start_button(_):
     global current_elements
+    global DISPLAYSURF
+
     clear_elements(current_elements)
     DISPLAYSURF.fill(DBROWN)
     character_selection()
@@ -85,6 +91,11 @@ def exit_game(_):
     sys.exit()
 
 def character_selection():
+    global current_elements
+    global selected_button
+    global DISPLAYSURF
+    global manager
+
     DISPLAYSURF.blit(pygame.image.load('artwork/icon_backgrounds.png'), (0, 0))
     # Character Selection
     character1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 325), (150, 50)),
@@ -132,7 +143,6 @@ def character_selection():
     current_elements.append(c4_button)
     current_elements.append(c5_button)
     current_elements.append(c6_button)
-    global selected_button
     selected_button = c1_button
     if joystick:
         c1_button.get_button().select()
@@ -164,9 +174,12 @@ def character_selection():
 
 def second_character_selection(char):
     global current_elements
-    clear_elements(current_elements)
     global enemy
     global player1
+    global selected_button
+    global manager
+
+    clear_elements(current_elements)
     player1 = all_characters[char.lower()]
     print(f'Player has chosen {player1.name}')
     # Character Selection
@@ -215,7 +228,6 @@ def second_character_selection(char):
     current_elements.append(c4_button)
     current_elements.append(c5_button)
     current_elements.append(c6_button)
-    global selected_button
     selected_button = c1_button
     if joystick:
         c1_button.get_button().select()
