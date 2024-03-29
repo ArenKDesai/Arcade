@@ -3,7 +3,7 @@ import pygame
 import pygame_gui
 import sound_player
 from all_moves import *
-from universal import enemy, player1, player2
+from universal import *
 
 class Character:
     def __init__(self, name, totalHP, attack, defense, speed, maxMana):
@@ -225,3 +225,44 @@ def controller_input(x_axis, y_axis, selected_button, x_button, glob_in):
 
 def move_activation(move):
     pass
+
+def draw_health(player1, player2, enemy):
+    DISPLAYSURF.blit(pygame.image.load('artwork/template.png'), (0, 0))
+    # Draw player names and health percentages
+    font = pygame.font.Font(None, 30)
+    player1_name = font.render(f'{player1.name}:', True, DTAN)
+    player1_health = font.render(f"{player1.currentHP}/{player1.totalHP}", True, DTAN)
+    player2_name = font.render(f'{player2.name}:', True, DTAN)
+    player2_health = font.render(f"{player2.currentHP}/{player2.totalHP}", True, DTAN)
+    enemy_name = font.render(f'{enemy.name}:', True, DTAN)
+    enemy_health = font.render(f"{enemy.currentHP}/{enemy.totalHP}", True, DTAN)
+    current_health.append(player1_health)
+    current_health.append(player2_health)
+    current_health.append(enemy_health)
+
+    DISPLAYSURF.blit(player1_name, (970, 255))
+    DISPLAYSURF.blit(player1_health, (1250, 255))
+    DISPLAYSURF.blit(player2_name, (970, 335))
+    DISPLAYSURF.blit(player2_health, (1250, 335))
+    DISPLAYSURF.blit(enemy_name, (970, 175))
+    DISPLAYSURF.blit(enemy_health, (1250, 175))
+    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 275, 370, 40))
+    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 280, 360, 30))
+    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 280, 360 * player1.get_hp_percent(), 30))
+
+    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 355, 370, 40))
+    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 360, 360, 30))
+    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 360, 360 * player2.get_hp_percent(), 30))
+
+    pygame.draw.rect(DISPLAYSURF, (122, 122, 125), pygame.Rect(965, 195, 370, 40))
+    pygame.draw.rect(DISPLAYSURF, (160, 21, 61), pygame.Rect(970, 200, 360, 30))
+    pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * enemy.get_hp_percent(), 30))
+
+def walkup(background):
+    pygame.time.delay(500)
+    for i in range(5):
+        DISPLAYSURF.blit(background, (0, 0))
+        DISPLAYSURF.blit(pygame.image.load(f'artwork/transition{i+1}.png'), (0, 0))
+        pygame.display.flip()
+        pygame.time.delay(5)
+
