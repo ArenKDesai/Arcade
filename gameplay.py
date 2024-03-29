@@ -144,7 +144,6 @@ def speed_check(player1, player2, enemy):
     order.sort(key=lambda x: x.speed, reverse=True) 
     return order
 
-
 def clear_elements(current_elements):
     for element in current_elements:
         if type(element) == BetterButton:

@@ -44,7 +44,6 @@ def start_battle():
     enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 75), (450, 450)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
-    pygame.display.flip()
     player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((120, 450), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{player1.name}.png'),
                                             manager=manager)
@@ -58,6 +57,7 @@ def start_battle():
     player1.set_display(DISPLAYSURF, manager)
     player2.set_display(DISPLAYSURF, manager)
     enemy.set_display(DISPLAYSURF, manager)
+    pygame.display.flip()
     draw_health(player1, player2, enemy)
 
 def select_item(char):
