@@ -3,7 +3,7 @@ import pygame
 import pygame_gui
 import sound_player
 from all_moves import *
-from glob_var import *
+from glob_var import enemy, player1, player2
 
 class Character:
     def __init__(self, name, totalHP, attack, defense, speed, maxMana):
@@ -16,6 +16,8 @@ class Character:
         self.currentMana = maxMana
         self.maxMana = maxMana
         self.buffs = {}
+        self.sprite = None
+        self.display = None
 
     def __str__(self):
         return f"{self.name} has {self.hp} HP, {self.attack} attack, {self.defense} defense, and {self.speed} speed."
@@ -46,6 +48,23 @@ class Character:
     
     def add_buff(self, buff, buffDuration):
         self.buffs[buff] = buffDuration
+
+    def set_sprite(self, sprite):
+        self.sprite = sprite
+
+    # TODO: fix shaking
+    def set_display(self, display):
+        self.display = display
+
+    def shake(self):
+        for _ in range(3):
+            self.sprite.get_relative_rect().move_ip(80,0)
+            self.display.flip()
+            pygame.time.delay(100)
+            self.sprite.get_relative_rect().move_ip(-80,0)
+            self.display.flip()
+            pygame.time.delay(100)
+
 
 class Player(Character):
     def __init__(self, name, totalHP, attack, defense, speed, mana, enemy):

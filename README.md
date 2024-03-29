@@ -4,9 +4,6 @@
 - Design characters
 - Design enemies
 - Design backgrounds
-- Find
-- Build combat
-- Add sounds
 - Make moves
 - Make transitions (scroll opening, walking to / from combat)
 - Make database to hold player data

@@ -17,7 +17,7 @@ from characters import *
 print(f"Importing sound_player at {time.time() - timer}")
 import sound_player
 print(f'Finished imports at {time.time() - timer}')
-from glob_var import usr_in
+
 
 # Global variables
 DISPLAYSURF = pygame.display.set_mode((1440, 900))
@@ -230,7 +230,7 @@ def select_item(char):
     # TODO: Item Selection
     item = None
     global enemy
-    enemy = all_enemies["goblin_enemy"]
+    enemy = all_enemies["drunk"]
     start_battle()
     return item
 
@@ -243,11 +243,13 @@ def start_battle():
     global DISPLAYSURF
     battling = True
     DISPLAYSURF.blit(pygame.image.load('artwork/grass_background.png'), (0, 0))
-    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 150), (400, 400)),
+    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 75), (450, 450)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
+    print(enemy_fighter.get_relative_rect())
+    print(enemy_fighter.get_relative_rect().move(5, 5))
     pygame.display.flip()
-    pygame.time.delay(2000)
+    pygame.time.delay(200)
     DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition1.png'), (0, 0))
     pygame.display.flip()
     pygame.time.delay(50)
@@ -259,12 +261,19 @@ def start_battle():
     pygame.time.delay(50)
     DISPLAYSURF.blit(pygame.image.load('artwork/grass.png'), (0, 0))
     pygame.display.flip()
-    player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((220, 550), (200, 200)),
+    player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((120, 450), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{player1.name}.png'),
                                             manager=manager)
-    player2_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((540, 550), (200, 200)),
+    player2_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((440, 450), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{player2.name}.png'),
                                             manager=manager)
+    # TODO: fix shaking
+    # player1.set_sprite(player1_fighter)
+    # player2.set_sprite(player2_fighter)
+    # enemy.set_sprite(enemy_fighter)
+    # player1.set_display(pygame.display)
+    # player2.set_display(pygame.display)
+    # enemy.set_display(pygame.display)
     draw_health(player1, player2, enemy)
 
 def draw_health(player1, player2, enemy):
@@ -305,6 +314,7 @@ if __name__ == "__main__":
     # Main Game loop
     while(running):
         generic_input = None
+        usr_in = True
         time_delta = FPS.tick(60)/1000.0
         if joystick:
             # TODO: Fix controller input
@@ -426,6 +436,7 @@ if __name__ == "__main__":
                 else:
                     # Enemy's turn            
                     enemy.aggro(player1, player2)
+                    pygame.time.delay(50)
         # Reset the screen
         manager.update(time_delta)
         manager.draw_ui(DISPLAYSURF)
