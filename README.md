@@ -51,5 +51,9 @@ All of the colors used in the game.
 - Make icon
 - Make start screen
 - CLean up global variables, replace with parameters?
-- Delete time module for pygame.delay
 - Make better backgrounds and animations with blit
+- Rename sounds
+
+# Ideas
+- Make ogre
+- make bar for drunk guy
