@@ -1,7 +1,13 @@
 # Arcade
 
 ## For users
-Good luck lmao
+To run the game, do these steps:
+1. Launch a command prompt. If you don't know how to do this, it will most likely be a difficult step, so look up a video and learn basic commands 'cd' and 'git clone'.
+1.5 If you don't have git installed, install it. 
+2. Type `git clone {this repository}`. This will download the game to your computer. 
+2.5 If you don't have python installed, install it. 
+3. Run `pip install -r requirements.txt`. This will install all the packages needed to run the game.
+4. Run `python app.py`. This will run the game.
 
 ## For developers
 
@@ -44,6 +50,6 @@ All of the colors used in the game.
 - Make database to hold player data
 - Make icon
 - Make start screen
-- CLean up global variables
+- CLean up global variables, replace with parameters?
 - Delete time module for pygame.delay
 - Make better backgrounds and animations with blit

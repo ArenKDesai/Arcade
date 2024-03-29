@@ -10,7 +10,7 @@ def start_screen():
     global selected_button
     global DISPLAYSURF
     global manager
-    
+
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
                                         text='START',
                                         manager=manager)
@@ -28,6 +28,11 @@ def start_screen():
 
 # Begin battle
 def start_battle():
+    global battling
+    global current_elements
+    global DISPLAYSURF
+    global manager
+    
     battling = True
     DISPLAYSURF.blit(pygame.image.load('artwork/grass_background.png'), (0, 0))
     pygame.display.flip()

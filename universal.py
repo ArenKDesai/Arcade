@@ -7,14 +7,15 @@ FPS = pygame.time.Clock()
 # DISPLAYSURF = pygame.display.set_mode((1440, 900), pygame.FULLSCREEN)
 pygame.display.set_caption('Arcade Game')
 manager = pygame_gui.UIManager((1440, 900), 'theme.json')
+
 # Global variables
-# TODO: This can probably be optimized
 current_elements = []
 running = True
 usr_in = True
 current_health = []
 battling = False
 item = 'test'
+
 # Handling controller input
 joystick = None
 selected_button = None

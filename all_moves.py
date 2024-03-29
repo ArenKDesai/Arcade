@@ -1,4 +1,5 @@
 import sound_player
+from universal import splash_message
 
 class Move:
     def __init__(self, name, user, target, cost):
