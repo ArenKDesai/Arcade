@@ -16,6 +16,8 @@ print(f"Importing characters at {time.time() - timer}")
 from characters import *
 print(f"Importing sound_player at {time.time() - timer}")
 import sound_player
+print(f"Importing splash_message at {time.time() - timer}")
+from universal import splash_message
 print(f'Finished imports at {time.time() - timer}')
 
 
@@ -238,7 +240,7 @@ def select_item(char):
 
 def walkup(background):
     pygame.time.delay(500)
-    for i in range(10):
+    for i in range(5):
         DISPLAYSURF.blit(background, (0, 0))
         DISPLAYSURF.blit(pygame.image.load(f'artwork/transition{i+1}.png'), (0, 0))
         pygame.display.flip()
@@ -451,6 +453,14 @@ if __name__ == "__main__":
                     # Enemy's turn            
                     enemy.aggro(player1, player2)
                     pygame.time.delay(50)
+            else:
+                if char.is_enemy():
+                    splash_message(f'{char.name} has been defeated!', DISPLAYSURF, manager)
+                    pygame.time.delay(3500)
+                    battling = False
+                else:
+                    splash_message(f'{char.name} has been defeated!', DISPLAYSURF, manager)
+                    
         # Reset the screen
         manager.update(time_delta)
         manager.draw_ui(DISPLAYSURF)
