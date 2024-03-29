@@ -1,6 +1,6 @@
 from gameplay import Enemy, Character, Player
 from all_moves import *
-from glob_var import enemy
+from universal import enemy
 
 all_enemies = {
     # name, totalHP, attack, defense, speed, mana, target

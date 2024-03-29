@@ -107,8 +107,8 @@ def character_selection():
     if joystick:
         c1_button.get_button().select()
     c1_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((285, 125), (150, 150)),
-                                              image_surface=pygame.image.load('artwork/goblin_icon.png'),
-                                              manager=manager)
+                                            image_surface=pygame.image.load('artwork/goblin_icon.png'),
+                                            manager=manager)
     c2_icon = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((645, 125), (150, 150)),
                                             image_surface=pygame.image.load('artwork/horse_icon.png'),
                                             manager=manager)
@@ -248,8 +248,6 @@ def start_battle():
     enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 75), (450, 450)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
-    print(enemy_fighter.get_relative_rect())
-    print(enemy_fighter.get_relative_rect().move(5, 5))
     pygame.display.flip()
     pygame.time.delay(200)
     DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition1.png'), (0, 0))
@@ -273,9 +271,9 @@ def start_battle():
     # player1.set_sprite(player1_fighter)
     # player2.set_sprite(player2_fighter)
     # enemy.set_sprite(enemy_fighter)
-    # player1.set_display(pygame.display)
-    # player2.set_display(pygame.display)
-    # enemy.set_display(pygame.display)
+    player1.set_display(DISPLAYSURF, manager)
+    player2.set_display(DISPLAYSURF, manager)
+    enemy.set_display(DISPLAYSURF, manager)
     draw_health(player1, player2, enemy)
 
 def draw_health(player1, player2, enemy):

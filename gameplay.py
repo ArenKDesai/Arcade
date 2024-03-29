@@ -3,7 +3,7 @@ import pygame
 import pygame_gui
 import sound_player
 from all_moves import *
-from glob_var import enemy, player1, player2
+from universal import enemy, player1, player2
 
 class Character:
     def __init__(self, name, totalHP, attack, defense, speed, maxMana):
@@ -18,6 +18,7 @@ class Character:
         self.buffs = {}
         self.sprite = None
         self.display = None
+        self.manager = None
 
     def __str__(self):
         return f"{self.name} has {self.hp} HP, {self.attack} attack, {self.defense} defense, and {self.speed} speed."
@@ -53,8 +54,10 @@ class Character:
         self.sprite = sprite
 
     # TODO: fix shaking
-    def set_display(self, display):
+    # TODO: There's probably a better way to do this
+    def set_display(self, display, manager):
         self.display = display
+        self.manager = manager
 
     def shake(self):
         for _ in range(3):
@@ -76,7 +79,6 @@ class Player(Character):
 
     def is_enemy(self):
         return False
-    
 
 
 # Enemies have two attacks, one basic, one special. The speical takes mana and happens less frequently.

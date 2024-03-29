@@ -1,5 +1,8 @@
 # Arcade
 
+# Next Steps
+- Make splash screen so player knows what's happening
+
 # TODO
 - Design characters
 - Design enemies
@@ -10,5 +13,5 @@
 - Make icon
 - Make start screen
 - CLean up global variables
-- Add splash screen for events
 - Delete time module for pygame.delay
+- Make better backgrounds and animations with blit
