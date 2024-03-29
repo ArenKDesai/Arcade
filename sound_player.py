@@ -20,6 +20,9 @@ def stomp_sound():
 def slash_sound():
     threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','370204__nekoninja__samurai-slash.wav'), True)).start()
 
+def death_sound():
+    threading.Thread(target=playsound.playsound, args=(os.path.join('sounds','717768__1bob__death-sound.wav'), True)).start()
+
 class MusicPlayer:
     def __init__(self, music):
         self.music = music

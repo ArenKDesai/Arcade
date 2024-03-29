@@ -17,42 +17,32 @@ from characters import *
 print(f"Importing sound_player at {time.time() - timer}")
 import sound_player
 print(f"Importing splash_message at {time.time() - timer}")
-from universal import splash_message
+from universal import *
+print(f"Importing pages at {time.time() - timer}")
+from pages import *
 print(f'Finished imports at {time.time() - timer}')
 
-
-# Global variables
+# Pygame setup
 DISPLAYSURF = pygame.display.set_mode((1440, 900))
+FPS = pygame.time.Clock()
 # DISPLAYSURF = pygame.display.set_mode((1440, 900), pygame.FULLSCREEN)
 pygame.display.set_caption('Arcade Game')
 manager = pygame_gui.UIManager((1440, 900), 'theme.json')
-DTAN = pygame.Color(126, 99, 99)
-TAN = pygame.Color(168, 124, 124)
-BROWN = pygame.Color(80, 60, 60)
-DBROWN = pygame.Color(60, 54, 51)
+# Global variables
+# TODO: This can probably be optimized
 current_elements = []
 running = True
 usr_in = True
-# TODO: This can probably be optimized
 current_health = []
-
-# Handling controller input
-joystick = None
-# TODO: Probably don't need this many global variables
-selected_button = None
-
 battling = False
 item = None
-
-FPS = pygame.time.Clock()
+# Handling controller input
+joystick = None
+selected_button = None
 
 def exit_game(_):
     print("Exiting game")
-    global running
-    running = False
     sound_player.button_sound()
-    global music_player
-    music_player.stop()
     pygame.quit()
     sys.exit()
 
@@ -309,22 +299,7 @@ def draw_health(player1, player2, enemy):
         
 if __name__ == "__main__":
     print(f'Starting game at {time.time() - timer}')
-    start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 490), (200, 100)),
-                                            text='START',
-                                            manager=manager)
-    start_bb = BetterButton(start_button, run_start_button)
-    exit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((620, 670), (200, 100)),
-                                            text='EXIT',
-                                            manager=manager)
-    exit_bb = BetterButton(exit_button, exit_game)
-    start_bb.add_below(exit_bb)
-    exit_bb.add_above(start_bb)
-    selected_button = start_bb
-    current_elements.append(start_bb)
-    current_elements.append(exit_bb)
-    DISPLAYSURF.fill(DBROWN)
     battle_ptr = 0
-    global music_player
     music_player = sound_player.MusicPlayer('honor-and-sword-main-11222.mp3')
     music_player.play()
     
@@ -332,17 +307,25 @@ if __name__ == "__main__":
     while(running):
         generic_input = None
         time_delta = FPS.tick(60)/1000.0
+
+        # Controller input
         if joystick:
             # TODO: Fix controller input
             # sending controller input to controller_input
             controller_input(joystick.get_axis(0), joystick.get_axis(1), 
-                                      selected_button, joystick.get_button(0), generic_input)
+                             selected_button, joystick.get_button(0), generic_input)
+            
+        # Event handling
         for event in pygame.event.get():
+            # Quitting game
             if event.type == pygame.QUIT:
                 exit_game(None)
+            # Controller connected
             elif event.type == pygame.JOYDEVICEADDED:
                 joystick = pygame.joystick.Joystick(event.device_index)
+            # All button pressing
             if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                # Finds the button pressed in current_elements
                 for element in current_elements:
                     if event.ui_element == element.button:
                         # Button names will be the function inputs
@@ -350,35 +333,43 @@ if __name__ == "__main__":
                         print(f'Button pressed: {generic_input}')
                         sound_player.button_sound()
                         element.press(generic_input)
+                        # If the button is an attack, pause for gameplay
                         if(element.is_attack):
                             usr_in = True
                             clear_elements(current_elements)
                         break
             manager.process_events(event)
+
+        # Battle loop
         if(battling and usr_in):
+            # Sorts characters by speed
             order = speed_check(player1, player2, enemy)
+            # Switches between characters once per loop
             battle_ptr += 1
             if battle_ptr == 3:
                 battle_ptr = 0
             char = order[battle_ptr]
-            #TODO: could clean up code
             clear_elements(current_elements)
+            # Regen mana & decrement buffs every turn
             char.change_mana(2)
             for buff in char.buffs:
                 char.buffs[buff] -= 1
                 if char.buffs[buff] == 0:
                     buff.undo()
                     char.buffs.pop(buff)
+            # Redraw health bars every turn
             draw_health(player1, player2, enemy)
             if char.is_alive():
                 print(f'{char.name}\'s turn!')
                 print(f'{char.name} is at {char.get_hp_percent()}')
                 if not char.is_enemy():
-                    usr_in = False
+                    usr_in = False # Pauses gameplay for user input
+                    # TODO: Could find a better way to do this
                     char.move1.change_target(enemy)
                     char.move2.change_target(enemy)
                     char.move3.change_target(enemy)
                     char.move4.change_target(enemy)
+                    # Display the attack options
                     if(char == player1):
                         # Show attack options
                         attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
@@ -397,6 +388,7 @@ if __name__ == "__main__":
                         a2BB = BetterButton(attack2, char.move2.use)
                         a3BB = BetterButton(attack3, char.move3.use)
                         a4BB = BetterButton(attack4, char.move4.use)
+                        # TODO: This can be optimized or turned into a function
                         a1BB.add_below(a3BB)
                         a1BB.add_right(a2BB)
                         a2BB.add_below(a4BB)
@@ -413,9 +405,7 @@ if __name__ == "__main__":
                         current_elements.append(a2BB)
                         current_elements.append(a3BB)
                         current_elements.append(a4BB)
-
                     else:
-                        # Show attack options
                         attack1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((950, 680), (200, 100)),
                                                                 text=f'{char.move1.name.upper()}',
                                                                 manager=manager)
@@ -453,12 +443,16 @@ if __name__ == "__main__":
                     # Enemy's turn            
                     enemy.aggro(player1, player2)
                     pygame.time.delay(50)
+            # Character is dead
             else:
+                # TODO: Change death to only occur once
                 if char.is_enemy():
+                    sound_player.death_sound()
                     splash_message(f'{char.name} has been defeated!', DISPLAYSURF, manager)
                     pygame.time.delay(3500)
                     battling = False
                 else:
+                    sound_player.death_sound()
                     splash_message(f'{char.name} has been defeated!', DISPLAYSURF, manager)
                     
         # Reset the screen

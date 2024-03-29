@@ -5,8 +5,13 @@ import pygame_gui
 player1 = None
 player2 = None
 enemy = None
-
 usr_in = True
+
+# Colors
+DTAN = pygame.Color(126, 99, 99)
+TAN = pygame.Color(168, 124, 124)
+BROWN = pygame.Color(80, 60, 60)
+DBROWN = pygame.Color(60, 54, 51)
 
 def splash_message(content, screen, manager):
     font = pygame.font.Font(None, 30)
