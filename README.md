@@ -32,8 +32,8 @@ All of the packages needed to run the game.
 ### theme.json
 All of the colors used in the game.
 
-# Next Steps
-- Make splash screen so player knows what's happening
+## Next Steps
+- Fix the cleaned code, which is now broken
 
 # TODO
 - Design characters

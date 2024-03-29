@@ -25,6 +25,9 @@ if __name__ == "__main__":
     battle_ptr = 0 # Pointer for the battle loop
     music_player = sound_player.MusicPlayer('honor-and-sword-main-11222.mp3')
     music_player.play()
+
+    # Begin game
+    start_screen()
     
     # Main Game loop
     while(running):
@@ -38,9 +41,6 @@ if __name__ == "__main__":
             controller_input(joystick.get_axis(0), joystick.get_axis(1), 
                              selected_button, joystick.get_button(0), generic_input)
             
-        # Begin game
-        start_screen()
-
         # Event handling
         for event in pygame.event.get():
             # Quitting game
