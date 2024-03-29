@@ -24,18 +24,15 @@ class Slash(Move):
         super().__init__("slash", user, target, 0)
 
     def use(self, _):
-        print("Using slash")
         sound_player.slash_sound()
-        print(self.target.name)
         self.target.take_damage(10 * (self.user.attack / 10))
-        print(f'{self.user.name} slashed {self.target.name} for {10 * (self.user.attack / 10)} damage!')
+        print(f'{self.user.name} slashed {self.target.name} for {10 * (self.user.attack / 10) - self.target.defense} damage!')
     
 class Spit(Move):
     def __init__(self, user, target):
         super().__init__("spit", user, target, 5)
 
     def use(self, _):
-        print("Using spit")
         sound_player.spit_sound()
         self.target.take_damage(15 * (self.user.attack / 10))
         self.user.change_mana(-5)
@@ -49,7 +46,6 @@ class Block(Move):
         super().__init__("block", user, target, 0)
 
     def use(self, _):
-        print("Using block")
         sound_player.block_sound()
         self.user.add_buff("defense", 999999)
         print(f'{self.user.name} blocks!')
@@ -62,7 +58,6 @@ class Stomp(Move):
         super().__init__("stomp", user, target, 0)
     
     def use(self, _):
-        print("Using stomp")
         sound_player.stomp_sound()
         self.target.take_damage(8 * (self.user.attack / 10))
         print(f'{self.user.name} stomped {self.target.name} for {8 * (self.user.attack / 10)} damage!')

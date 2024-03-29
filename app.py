@@ -53,6 +53,7 @@ def exit_game(_):
     sys.exit()
 
 def character_selection():
+    DISPLAYSURF.blit(pygame.image.load('artwork/icon_backgrounds.png'), (0, 0))
     # Character Selection
     character1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 325), (150, 50)),
                                             text='GOBLIN',
@@ -233,15 +234,31 @@ def select_item(char):
     start_battle()
     return item
 
+def walkup():
+    pass
+
 # Begin battle
 def start_battle():
     global battling
     global DISPLAYSURF
     battling = True
-    DISPLAYSURF.blit(pygame.image.load('artwork/grass.png'), (0, 0))
+    DISPLAYSURF.blit(pygame.image.load('artwork/grass_background.png'), (0, 0))
     enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 150), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
+    pygame.display.flip()
+    pygame.time.delay(2000)
+    DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition1.png'), (0, 0))
+    pygame.display.flip()
+    pygame.time.delay(50)
+    DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition2.png'), (0, 0))
+    pygame.display.flip()
+    pygame.time.delay(50)
+    DISPLAYSURF.blit(pygame.image.load('artwork/grass_transition3.png'), (0, 0))
+    pygame.display.flip()
+    pygame.time.delay(50)
+    DISPLAYSURF.blit(pygame.image.load('artwork/grass.png'), (0, 0))
+    pygame.display.flip()
     player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((220, 550), (200, 200)),
                                             image_surface=pygame.image.load(f'artwork/{player1.name}.png'),
                                             manager=manager)
@@ -305,8 +322,8 @@ if __name__ == "__main__":
                         # Button names will be the function inputs
                         generic_input = element.button.text
                         print(f'Button pressed: {generic_input}')
-                        element.press(generic_input)
                         sound_player.button_sound()
+                        element.press(generic_input)
                         if(element.is_attack):
                             usr_in = True
                             clear_elements(current_elements)
@@ -329,7 +346,7 @@ if __name__ == "__main__":
             draw_health(player1, player2, enemy)
             if char.is_alive():
                 print(f'{char.name}\'s turn!')
-                print(char.get_hp_percent())
+                print(f'{char.name} is at {char.get_hp_percent()}')
                 if not char.is_enemy():
                     usr_in = False
                     char.move1.change_target(enemy)

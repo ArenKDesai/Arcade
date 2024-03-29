@@ -14,3 +14,4 @@
 - Make start screen
 - CLean up global variables
 - Add splash screen for events
+- Delete time module for pygame.delay
