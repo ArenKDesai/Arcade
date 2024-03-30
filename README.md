@@ -2,10 +2,8 @@
 
 ## For users
 To run the game, do these steps:
-1. Launch a command prompt. If you don't know how to do this, it will most likely be a difficult step, so look up a video and learn basic commands 'cd' and 'git clone'.
-1.5 If you don't have git installed, install it. 
-2. Copy and paste `https://github.com/ArenKDesai/Arcade.git` and hit enter. This will download the game to your computer. 
-2.5 If you don't have python installed, [install it](https://www.python.org/downloads/). 
+1. Launch a command prompt. If you don't know how to do this, it will most likely be a difficult step, so look up a video and learn basic commands 'cd' and 'git clone'. If you don't have git installed, install it. 
+2. Copy and paste `https://github.com/ArenKDesai/Arcade.git` and hit enter. This will download the game to your computer. If you don't have python installed, [install it](https://www.python.org/downloads/). 
 3. Run `pip install -r requirements.txt`. This will install all the packages needed to run the game.
 4. Run `python app.py`. This will run the game.
 
