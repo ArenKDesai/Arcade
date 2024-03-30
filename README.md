@@ -50,8 +50,10 @@ All of the colors used in the game.
 - Make start screen
 - CLean up global variables, replace with parameters?
 - Rename sounds
-- Make a scroll opening down animation instead of poor middle animation
+- Smoothen scroll animation
 - Make separate draw function for drawing enemy and characters
+- Fix splash location and enemy / character sizes and location
+- Make walk away
 
 # Ideas
 - Make ogre
