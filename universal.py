@@ -39,12 +39,51 @@ def splash_message(content, screen, manager):
     screen.blit(pygame.image.load('artwork/splash.png'), (0, 0))
     screen.blit(text, (50, 50))
     pygame.display.flip()
-    pygame.time.delay(1750)
 
-def check_battling():
+def get_battling():
     global battling
     return battling
 
-def check_usr_in():
+def battling_begin():
+    global battling
+    battling = True
+
+def battling_end():
+    global battling
+    battling = False
+
+def get_usr_in():
     global usr_in
     return usr_in
+
+def usr_in_begin():
+    global usr_in
+    usr_in = True
+
+def usr_in_end():
+    global usr_in
+    usr_in = False
+
+def get_enemy():
+    global enemy
+    return enemy
+
+def set_enemy(new_enemy):
+    global enemy
+    enemy = new_enemy
+
+def get_player1():
+    global player1
+    return player1
+
+def set_player1(new_player):
+    global player1
+    player1 = new_player
+
+def get_player2():
+    global player2
+    return player2
+
+def set_player2(new_player):
+    global player2
+    player2 = new_player

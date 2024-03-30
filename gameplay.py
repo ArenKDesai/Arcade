@@ -138,7 +138,10 @@ class Enemy(Character):
     def is_enemy(self):
         return True
 
-def speed_check(player1, player2, enemy):
+def speed_check():
+    player1 = get_player1()
+    player2 = get_player2()
+    enemy = get_enemy()
     #TODO: make sure this works
     order = [player1, player2, enemy]
     order.sort(key=lambda x: x.speed, reverse=True) 
@@ -225,7 +228,11 @@ def controller_input(x_axis, y_axis, selected_button, x_button, glob_in):
 def move_activation(move):
     pass
 
-def draw_health(player1, player2, enemy):
+def draw_health():
+    player1 = get_player1()
+    player2 = get_player2()
+    enemy = get_enemy()
+
     DISPLAYSURF.blit(pygame.image.load('artwork/template.png'), (0, 0))
     # Draw player names and health percentages
     font = pygame.font.Font(None, 30)
@@ -258,10 +265,34 @@ def draw_health(player1, player2, enemy):
     pygame.draw.rect(DISPLAYSURF, (165, 221, 155), pygame.Rect(970, 200, 360 * enemy.get_hp_percent(), 30))
 
 def walkup(background):
+    # TODO: fix flashing
+    player1 = get_player1()
+    player2 = get_player2()
+    enemy = get_enemy()
+
+    DISPLAYSURF.blit(background, (0, 0))
+    player1_image = pygame.image.load(f'artwork/{player1.name}.png')
+    player2_image = pygame.image.load(f'artwork/{player2.name}.png')
+    enemy_image = pygame.image.load(f'artwork/{enemy.name}.png')
+    DISPLAYSURF.blit(enemy_image, (280, 75))
+    pygame.display.flip()
+    pygame.time.delay(1500)
+
+    for i in range(10):
+        DISPLAYSURF.blit(background, (0, 0))
+        DISPLAYSURF.blit(enemy_image, (280, 75))
+        DISPLAYSURF.blit(player1_image, (280, 1640 - 119*(i+1)))
+        DISPLAYSURF.blit(player2_image, (120, 1640 - 119*(i+1)))
+        pygame.display.flip()
+        pygame.time.delay(5)
+
     pygame.time.delay(500)
     for i in range(5):
         DISPLAYSURF.blit(background, (0, 0))
-        DISPLAYSURF.blit(pygame.image.load(f'artwork/transition{i+1}.png'), (0, 0))
+        DISPLAYSURF.blit(pygame.image.load(f'artwork/transition{(i+1)*2}.png'), (0, 0))
+        DISPLAYSURF.blit(enemy_image, (280, 75))
+        DISPLAYSURF.blit(player1_image, (280, 450))
+        DISPLAYSURF.blit(player2_image, (120, 450))
         pygame.display.flip()
         pygame.time.delay(5)
 

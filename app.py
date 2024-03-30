@@ -67,11 +67,16 @@ if __name__ == "__main__":
             manager.process_events(event)
 
         # Battle loop
-        battling = check_battling()
-        print(battling)
+        battling = get_battling()
+        # print(battling)
         if(battling and usr_in):
+            # Grap characters from universal
+            enemy = get_enemy()
+            player1 = get_player1()
+            player2 = get_player2()
+
             # Sorts characters by speed
-            order = speed_check(player1, player2, enemy)
+            order = speed_check()
             # Switches between characters once per loop
             battle_ptr += 1
             if battle_ptr == 3:
@@ -86,7 +91,7 @@ if __name__ == "__main__":
                     buff.undo()
                     char.buffs.pop(buff)
             # Redraw health bars every turn
-            draw_health(player1, player2, enemy)
+            draw_health()
             if char.is_alive():
                 print(f'{char.name}\'s turn!')
                 print(f'{char.name} is at {char.get_hp_percent()}')
@@ -170,7 +175,6 @@ if __name__ == "__main__":
                 else:
                     # Enemy's turn            
                     enemy.aggro(player1, player2)
-                    pygame.time.delay(50)
             # Character is dead
             else:
                 # TODO: Change death to only occur once

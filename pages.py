@@ -28,20 +28,22 @@ def start_screen():
 
 # Begin battle
 def start_battle():
-    global battling
     global current_elements
     global DISPLAYSURF
     global manager
-    global player1
-    global player2
-    global enemy
+    enemy = get_enemy()
+    player1 = get_player1()
+    player2 = get_player2()
 
-    battling = True
-    DISPLAYSURF.blit(pygame.image.load('artwork/grass_background.png'), (0, 0))
+    battling_begin()
     pygame.display.flip()
+    player1.set_display(DISPLAYSURF, manager)
+    player2.set_display(DISPLAYSURF, manager)
+    enemy.set_display(DISPLAYSURF, manager)
+    
     walkup(pygame.image.load('artwork/grass_background.png'))
     DISPLAYSURF.blit(pygame.image.load('artwork/grass.png'), (0, 0))
-    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 75), (450, 450)),
+    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 75), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
     player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((120, 450), (400, 400)),
@@ -51,27 +53,21 @@ def start_battle():
                                             image_surface=pygame.image.load(f'artwork/{player2.name}.png'),
                                             manager=manager)
     # TODO: fix shaking
-    # player1.set_sprite(player1_fighter)
-    # player2.set_sprite(player2_fighter)
-    # enemy.set_sprite(enemy_fighter)
-    player1.set_display(DISPLAYSURF, manager)
-    player2.set_display(DISPLAYSURF, manager)
-    enemy.set_display(DISPLAYSURF, manager)
     pygame.display.flip()
-    draw_health(player1, player2, enemy)
+    draw_health()
 
 def select_item(char):
     global current_elements
-    global player2
-    global enemy
 
     clear_elements(current_elements)
     player2 = all_characters[char.lower()]
+    set_player2(player2)
     print(f'Player has chosen {player2.name}')
     # TODO: Item Selection
     item = None
     # TODO: Enemy selection
     enemy = all_enemies["drunk"]
+    set_enemy(enemy)
     start_battle()
     return item
 
@@ -174,13 +170,12 @@ def character_selection():
 
 def second_character_selection(char):
     global current_elements
-    global enemy
-    global player1
     global selected_button
     global manager
 
     clear_elements(current_elements)
     player1 = all_characters[char.lower()]
+    set_player1(player1)
     print(f'Player has chosen {player1.name}')
     # Character Selection
     character1 = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((285, 325), (150, 50)),
