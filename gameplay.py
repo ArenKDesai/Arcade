@@ -276,16 +276,16 @@ def walkup(background):
     enemy_image = pygame.image.load(f'artwork/{enemy.name}.png')
     DISPLAYSURF.blit(enemy_image, (280, 75))
     pygame.display.flip()
-    pygame.time.delay(1500)
+    pygame.time.delay(1000)
 
     # Allies walk up
-    for i in range(10):
+    for i in range(100):
         DISPLAYSURF.blit(background, (0, 0))
         DISPLAYSURF.blit(enemy_image, (280, 75))
-        DISPLAYSURF.blit(player1_image, (280, 1640 - 119*(i+1)))
-        DISPLAYSURF.blit(player2_image, (120, 1640 - 119*(i+1)))
+        DISPLAYSURF.blit(player1_image, (280, 1640 - (1190/100)*(i+1)))
+        DISPLAYSURF.blit(player2_image, (120, 1640 - (1190/100)*(i+1)))
         pygame.display.flip()
-        pygame.time.delay(15)
+        pygame.time.delay(5)
 
     # Scroll UI opens
     pygame.time.delay(500)

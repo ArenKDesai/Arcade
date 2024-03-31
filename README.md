@@ -54,6 +54,7 @@ All of the colors used in the game.
 - Make separate draw function for drawing enemy and characters
 - Fix splash location and enemy / character sizes and location
 - Make walk away
+- Make a plan for how to balance game
 
 # Ideas
 - Make ogre
