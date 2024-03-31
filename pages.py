@@ -43,13 +43,13 @@ def start_battle():
     
     walkup(pygame.image.load('artwork/grass_background.png'))
     DISPLAYSURF.blit(pygame.image.load('artwork/grass.png'), (0, 0))
-    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 75), (400, 400)),
+    enemy_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((280, 60), (400, 400)),
                                             image_surface=pygame.image.load(f'artwork/{enemy.name}.png'),
                                             manager=manager)
-    player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((120, 450), (400, 400)),
+    player1_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((120, 420), (300, 300)),
                                             image_surface=pygame.image.load(f'artwork/{player1.name}.png'),
                                             manager=manager)
-    player2_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((440, 450), (400, 400)),
+    player2_fighter = pygame_gui.elements.UIImage(relative_rect=pygame.Rect((440, 420), (300, 300)),
                                             image_surface=pygame.image.load(f'artwork/{player2.name}.png'),
                                             manager=manager)
     # TODO: fix shaking

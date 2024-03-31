@@ -93,7 +93,9 @@ if __name__ == "__main__":
             # Redraw health bars every turn
             draw_health()
             if char.is_alive():
-                print(f'{char.name}\'s turn!')
+                font = pygame.font.Font(None, 30)
+                text = font.render(f"{char.name}'s Turn", True, (126, 99, 99))
+                DISPLAYSURF.blit(text, (955, 555))
                 print(f'{char.name} is at {char.get_hp_percent()}')
                 if not char.is_enemy():
                     usr_in = False # Pauses gameplay for user input
@@ -171,9 +173,8 @@ if __name__ == "__main__":
                         current_elements.append(a2BB)
                         current_elements.append(a3BB)
                         current_elements.append(a4BB)
-                        
                 else:
-                    # Enemy's turn            
+                    # Enemy's turn
                     enemy.aggro(player1, player2)
             # Character is dead
             else:

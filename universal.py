@@ -36,8 +36,8 @@ DBROWN = pygame.Color(60, 54, 51)
 def splash_message(content, screen, manager):
     font = pygame.font.Font(None, 30)
     text = font.render(content, True, (126, 99, 99))
-    screen.blit(pygame.image.load('artwork/splash.png'), (0, 0))
-    screen.blit(text, (50, 50))
+    screen.blit(pygame.image.load('artwork/splash.png'), (50, 775))
+    screen.blit(text, (90, 820))
     pygame.display.flip()
 
 def get_battling():

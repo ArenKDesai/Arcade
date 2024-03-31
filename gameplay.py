@@ -276,7 +276,6 @@ def walkup(background):
     enemy_image = pygame.image.load(f'artwork/{enemy.name}.png')
     DISPLAYSURF.blit(enemy_image, (280, 75))
     pygame.display.flip()
-    pygame.time.delay(1000)
 
     # Allies walk up
     for i in range(100):
@@ -297,4 +296,3 @@ def walkup(background):
         DISPLAYSURF.blit(player2_image, (120, 450))
         pygame.display.flip()
         pygame.time.delay(5)
-
