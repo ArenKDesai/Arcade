@@ -55,8 +55,10 @@ All of the colors used in the game.
 - Fix splash location and enemy / character sizes and location
 - Make walk away
 - Make a plan for how to balance game
+- make 6 more characters, separate character selection into two groups
 
 # Ideas
 - Make ogre
 - make bar for drunk guy
 - make rogue pop star
+- mushroom man
