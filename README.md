@@ -58,7 +58,22 @@ All of the colors used in the game.
 - Fix characters models to be 400x200
 
 # Ideas
-- Make ogre
-- make bar for drunk guy
-- make rogue pop star
-- mushroom man
+## Ogre
+- Level 1
+- Low defense, medium health
+- medium attack
+
+## Drunkard
+- Level 1
+- Low health, low defense
+- medium attack
+
+## Rogue Pop Star
+- Level 2
+- Low health, low defense
+- High attack
+
+## Mushroom Man
+- Level 3
+- High defense, medium health
+- Low attack
