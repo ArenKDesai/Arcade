@@ -2,9 +2,9 @@ import pygame
 import pygame_gui
 
 # Pygame setup
-DISPLAYSURF = pygame.display.set_mode((1440, 900))
+# DISPLAYSURF = pygame.display.set_mode((480, 270))
 FPS = pygame.time.Clock()
-# DISPLAYSURF = pygame.display.set_mode((1440, 900), pygame.FULLSCREEN)
+DISPLAYSURF = pygame.display.set_mode((1440, 900), pygame.FULLSCREEN)
 pygame.display.set_caption('Arcade Game')
 manager = pygame_gui.UIManager((1440, 900), 'theme.json')
 

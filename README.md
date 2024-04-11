@@ -44,18 +44,18 @@ All of the colors used in the game.
 - Design enemies
 - Design backgrounds
 - Make moves
-- Make transitions
+- Remove / Smoothen transitions
 - Make database to hold player data
 - Make icon
 - Make start screen
-- CLean up global variables, replace with parameters?
 - Rename sounds
-- Smoothen scroll animation
+- Remove scroll animation
+- Add idle animation
 - Make separate draw function for drawing enemy and characters
 - Fix splash location and enemy / character sizes and location
-- Make walk away
 - Make a plan for how to balance game
 - make 6 more characters, separate character selection into two groups
+- Fix characters models to be 400x200
 
 # Ideas
 - Make ogre
